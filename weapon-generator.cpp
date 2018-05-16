@@ -9,15 +9,18 @@ struct item{
     int health;
     string atack;
     string type;
-    int price
+    int price;
 };
-
 
 //Tipos de armas
 item sword;//atq ++
 item mace;//atq+,vida+
 item gauntlet;//atq+,def+,vida+
 item sword_shield;//atq+ def+
+
+
+
+item weapons[4] = {sword,mace,gauntlet,sword_shield};
 
 //Tipos de armadura
 item light_armor;//+vida
@@ -26,22 +29,8 @@ item heavy_armor;//+def
 item spiky_armor;//+atq,+def
 item kimono;//+atq,+vida
 
+item armors[5] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
 
-//Tipos de alteradores
-//Irão alterar tanto armaduras quanto armas
-//Não sei se definir eles como items é o mais correto, mas creio que facilita a implementação
-
-//Alteradores positivos
-item enraged;//+afq
-item shiny;//+vida
-item tought;//+def
-item legendary;//+atq,+def,+vida
-
-//Alteradores negativos
-item irreparable;//-atq,-def,-vida
-item weak;//-def
-item dirty;//-vida
-item soft;//-atq
 
 //Initial
 item stick;//Arma inicia
@@ -50,6 +39,8 @@ item potato_sack;//Armadura inicial
 //Poderiamos colocar humor criando itens similares, mas comicos
 //Como por exemplo uma pedra, que teria os estatos igual o da gauntlet porem o texto de ataque seria diferente
 //Ou uma roupa de papel aluminio, coisa assim o mesmo pra monstros
+
+
 
 
 item generate_weapon(int gameProgressMultiplyer) {//Gera uma arma aleatória
@@ -66,10 +57,10 @@ item generate_randItem(int gameProgressMultiplyer) { //Gera um item que pode ser
 }
 
 
-item getRandomWeapon() {//Pega uma arma aleatória
+item get_random_weapon() {//Pega uma arma aleatória
 
 }
 
-item getRandomArmor() {//Pega uma armadura aleatória
+item get_random_armor() {//Pega uma armadura aleatória
 
 }

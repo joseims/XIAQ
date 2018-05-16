@@ -5,6 +5,7 @@ using namespace std;
 //Irão alterar tanto armaduras quanto armas e monstros
 //Porém o conjunto de alterardores de armas e armaduras são diferentes dos alteradores de monstros
 struct alterer {
+    string text;
     int strength;
     int defense;
     int health;
@@ -12,19 +13,21 @@ struct alterer {
 
 
 
-alterer getRandomWeaponAlterer(){//Pega um alterador aleatório da lista
+alterer get_random_weapon_alterer(){//Pega um alterador aleatório da lista
 
 }
 
-alterer getRandomMonsterAlterer(){//Pega um alterador aleatório da lista
+alterer get_random_monster_alterer(){//Pega um alterador aleatório da lista
 
 }
 
-
+//defautl
+//Existe tanto para monstros quanto para armas
+alterer default_;
 
 //Tipos de alteradores para armas
 //Alteradores positivos
-alterer enraged;//+afq
+alterer enraged;//+atq
 alterer shiny;//+vida
 alterer tought;//+def
 alterer legendary;//+atq,+def,+vida
@@ -35,32 +38,28 @@ alterer weak;//-def
 alterer dirty;//-vida
 alterer soft;//-atq
 
-
+alterer weapon_alterer[8] = {enraged,shiny,tought,legendary,irreparable,weak,dirty,soft,default_};
 
 //Tipos de alterador para mostros
 //Negativos
 alterer weak;
 alterer pacifist;
-alterer calm;
 alterer dumb;
-alterer awful;
-alterer greedy;
 alterer blind;
-alterer scared;
 alterer imaginary;
 alterer legless;
 
 //Positivos
 alterer invisible;
 alterer gigantic;
-alterer three-headed;
+alterer three_headed;
 alterer terrifying;
-alterer scary;
-alterer voracius;
-alterer legendary;
 alterer hairy;
 alterer stony;
 alterer murderer;
+
+
+alterer monster_alterer[13] = {weak,pacifist,dumb,blind,imaginary,legless,invisible,gigantic,three_headed,terrifying,hairy,stony,murderer,default_};
 
 
 

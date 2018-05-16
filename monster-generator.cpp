@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+#include "alterer-generator.cpp"
 
 struct monster {
     string name;
@@ -17,18 +17,14 @@ struct monster {
 monster thief;
 monster dragon;
 monster golem;
-monster knight;
-monster angel;
-monster living_wall;
 monster blob;
-monster Knight;
-monster demon;
-monster puppet;
 monster vampire;
 monster werewolf;
-monster living_furniture;
 monster giant_mouse;
 
+monster monsters[7] = {thief,dragon,golem,blob,vampire,werewolf,giant_mouse};
 
 
-void generateRandomMonster(bool isBoss, int gameProgressMultiplyer)
+
+void generate_random_monster(bool isBoss, int gameProgressMultiplyer) {
+}
