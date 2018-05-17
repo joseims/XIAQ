@@ -6,18 +6,35 @@ using namespace std;
 item itens[3];
 bool is_bought[3];
 int potion_price = 5;
-string potion_text = "Poção (Recupera X de vida)"
+int actual_potion_price;
+string potion_text = "Poção (Recupera X de vida)";
+string store_welcome_text = "BEM VINDO MEU PARCEIRO\n";
+string already_bought_text = "Você já comprou esse item, escolha novamente\n";
+string exit_text = "Xau xau meu parceiro\n";
+string not_enought_coins_text = "Sinto muito, você não me parece ter dinheiro suficiente para comprar isso\n";
+string invalid_option_text= "Opção Inválida, escolha novamente\n";
 
 void see_store(main_character character) {
+    calculate_actual_potion_price(character);
+    printf("%s",store_welcome_text );
     int game_progress_multiplyer = character.gameProgressMultiplyer;
     reset_is_bought();
     itens[0] = generate_weapon(game_progress_multiplyer);
     itens[1] = generate_armor(game_progress_multiplyer);
     itens[2] = generate_rand_item(game_progress_multiplyer);
-    print_menu(character);
-    buying_menu(character);
+    run_store();
     
 };
+
+void calculate_actual_potion_price(main_character main_character) {
+    actual_potion_price = potion_price * character.game_progress_multiplyer;
+}
+
+void run_store(main_character character) {
+    printf("\n\n");
+    print_menu(character);
+    buying_menu(character);
+}
 
 void reset_is_bought(){
     for (int i = 0; i< 3; i ++) {
@@ -26,25 +43,50 @@ void reset_is_bought(){
 };
 
 void exit_store() {
-    print("Xau xau meu parceiro");
+    print("%s",exit_text);
 };
 
-void buy_item(main_character character, item item) {
+void buy_item(main_character character, item item,int index) {
     if (can_buy_it(character,item.price)) {
-        //desconta o valor , equipa o item e marca como comprado
+        character.coins -= item.price;
+        equip_item(character,item);
+        is_bought[index] = true;
     } else {
-        printf("Ops,a");
+        printf("%s",not_enought_coins_text);
     }
-    buying_menu();
+    run_store();
 };
+
+void equip_item(main_character character, item item, int index) {
+    if (item.type == ARMOR_TYPE) {
+        old_item =  character.armor;
+        character.armor = item;
+    } else if (item.type == WEAPON_TYPE){
+        old_item =  character.weapon;
+        character.weapon = item;
+    }
+    int def_diff = item.defense - old_item.defense;
+    int str_diff = item.strength - old_item.strength;
+    int hp_diff = item.health - old_item.health;
+
+    character.strength += str_dif;
+    character.defense += def_diff;
+    character.max_health += hp_diff;
+
+    if (character.max_health < character.health) {
+        character.health = character.max_health;
+    }
+}
+
 
 void buy_potion(main_character character) {
     if (can_buy_it(character,potion_price)) {
-        //Desconta o valor,incrementa
+        character.coins -= actual_potion_price;
+        character.potion += 1;
     } else {
-        printf("Ops,a");
+        printf("%s",not_enought_coins_text);
     }
-    buying_menu();
+    run_store();
 };
 
 void buying_menu(main_character character) {
@@ -53,13 +95,13 @@ void buying_menu(main_character character) {
         scanf("%d",&option);
         if (is_bought(option)) {
             if (option == 1) {
-                buy_item(character,itens[0]);
+                buy_item(character,itens[0],0);
                 return;
             }  else if (option == 2) {
-                buy_item(character,itens[1]);
+                buy_item(character,itens[1],1);
                 return;
             }  else if (option == 3) {
-                buy_item(character,itens[2]);    
+                buy_item(character,itens[2],2);    
                 return;      
             }  else if (option == 4) {
                 buy_potion(character);
@@ -68,10 +110,10 @@ void buying_menu(main_character character) {
                 exit_store();
                 return;
             }  else {
-                printf("opção Inválida, escolha novamente");
+                printf("%s",invalid_option_text);
             }
         } else {
-            printf("Você já comprou esse item, escolha novamente");
+            printf("%s",already_bought_text);
         }
     }
 }
@@ -98,17 +140,20 @@ item get_same_type_equipped_item(string item_type,main_character character) {
 };
 
 void print_item(item item,main_character character,int index){
-    item old_item = get_same_type_equipped_item(item.type,character);
-    int def_diff = item.defense - old_item.defense;
-    int atq_diff = item.attack - old_item.attack;
-    int hp_diff = item.health - old_item.health;
-    printf("[%d] %s (Ataque= %d, Defesa= %d,Vida= $d) - %d",index,item.name,atq_diff,def_diff,hp_diff,item.price);
+    if (is_bought[index]) {
+        printf("[%d] (Item comprado)",index);
+    } else {
+        item old_item = get_same_type_equipped_item(item.type,character);
+        int def_diff = item.defense - old_item.defense;
+        int str_diff = item.strength - old_item.strength;
+        int hp_diff = item.health - old_item.health;
+        printf("[%d] %s (Força= %d, Defesa= %d,Vida= $d) - %d\n",index,item.name,str_diff,def_diff,hp_diff,item.price);
+    }
 };
 
 
 void print_potion(int game_progress_multiplyer) {
-    int actual_potion_price = get_item_price(potion_price,game_progress_multiplyer);
-    printf("[4] %s - $d",potion_text,actual_potion_price);
+    printf("[4] %s - %d\n",potion_text,actual_potion_price);
 }
 
 void print_menu(int game_progress_multiplyer,main_character character) {

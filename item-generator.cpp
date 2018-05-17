@@ -10,7 +10,7 @@ struct item{
     int strength;
     int defense;
     int health;
-    string atack;
+    string attack;
     string type;
     int price;
 };

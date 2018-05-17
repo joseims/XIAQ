@@ -7,7 +7,7 @@ struct monster {
     int strength;
     int defense;
     int health;
-    string atack;
+    string attack;
     int progressMultiplier;
     int coins;
 };
