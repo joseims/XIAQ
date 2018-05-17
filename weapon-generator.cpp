@@ -43,15 +43,15 @@ item potato_sack;//Armadura inicial
 
 
 
-item generate_weapon(int gameProgressMultiplyer) {//Gera uma arma aleatória
+item generate_weapon(int game_progress_multiplyer) {//Gera uma arma aleatória
 
 }
 
-item generate_armor(int gameProgressMultiplyer) { // Gera uma armadura aleatória
+item generate_armor(int game_progress_multiplyer) { // Gera uma armadura aleatória
 
 }
 
-item generate_randItem(int gameProgressMultiplyer) { //Gera um item que pode ser uma armadura ou arma, 
+item generate_randItem(int game_progress_multiplyer) { //Gera um item que pode ser uma armadura ou arma, 
                                                      //A ideia é que na loja tenha 1 arma, 1 armadura e 1 rand
 
 }

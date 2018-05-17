@@ -26,5 +26,5 @@ monster monsters[7] = {thief,dragon,golem,blob,vampire,werewolf,giant_mouse};
 
 
 
-void generate_random_monster(bool isBoss, int gameProgressMultiplyer) {
+void generate_random_monster(bool is_boss, int game_progress_multiplyer) {
 }
