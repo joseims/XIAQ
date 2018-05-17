@@ -9,6 +9,7 @@ void seeStore(main_character character) {
 int game_progress_multiplyer = character.gameProgressMultiplyer;
 itens[0] = generate_weapon();
 itens[1] = generate_armor();
+itens[2] = 
 
 };
 

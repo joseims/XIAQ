@@ -51,7 +51,7 @@ item generate_armor(int game_progress_multiplyer) { // Gera uma armadura aleató
 
 }
 
-item generate_randItem(int game_progress_multiplyer) { //Gera um item que pode ser uma armadura ou arma, 
+item generate_rand_item(int game_progress_multiplyer) { //Gera um item que pode ser uma armadura ou arma, 
                                                      //A ideia é que na loja tenha 1 arma, 1 armadura e 1 rand
 
 }
