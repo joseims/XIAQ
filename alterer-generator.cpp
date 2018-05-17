@@ -11,16 +11,6 @@ struct alterer {
     int health;
 };
 
-
-
-alterer get_random_weapon_alterer(){//Pega um alterador aleatório da lista
-
-}
-
-alterer get_random_monster_alterer(){//Pega um alterador aleatório da lista
-
-}
-
 //defautl
 //Existe tanto para monstros quanto para armas
 alterer default_;
@@ -38,7 +28,7 @@ alterer weak;//-def
 alterer dirty;//-vida
 alterer soft;//-atq
 
-alterer weapon_alterer[8] = {enraged,shiny,tought,legendary,irreparable,weak,dirty,soft,default_};
+alterer item_alterer[8] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
 
 //Tipos de alterador para mostros
 //Negativos
@@ -58,9 +48,15 @@ alterer hairy;
 alterer stony;
 alterer murderer;
 
+alterer monster_alterer[13] = {weak, pacifist, dumb, blind, imaginary, legless,
+    invisible, gigantic, three_headed, terrifying, hairy, stony, murderer, default_};
 
-alterer monster_alterer[13] = {weak,pacifist,dumb,blind,imaginary,legless,invisible,gigantic,three_headed,terrifying,hairy,stony,murderer,default_};
+alterer get_random_item_alterer(){//Pega um alterador aleatório da lista
+    int random = rand() % item_alterer.size();
+    return item_alterer[random];
+}
 
-
-
-
+alterer get_random_monster_alterer(){//Pega um alterador aleatório da lista
+    int random = rand() % monster_alterer.size();
+    return monster_alterer[random];
+}
