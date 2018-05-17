@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#include "weapon-generator.cpp"
+#include "item-generator.cpp"
 
 //representação do personagem
 //os atributos dele em geral são 
@@ -12,5 +12,6 @@ struct main_character {
     item weapon;
     item armor;
     int game_progress_multiplyer;
+    int coins;
     int potion;
 };

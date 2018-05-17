@@ -2,6 +2,9 @@
 using namespace std;
 
 
+string WEAPON_TYPE = "weapon";
+string ARMOR_TYPE = "armor";
+
 struct item{
     string name;
     int strength;
