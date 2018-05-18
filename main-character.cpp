@@ -8,9 +8,9 @@ struct main_character {
     int strength;
     int defense;
     int health;
-    int maxHealth;
+    int max_health;
     item weapon;
     item armor;
-    int gameProgressMultiplyer;
+    int game_progress_multiplyer;
     int potion;
 };
