@@ -3,7 +3,7 @@
 
 using namespace std;
 
-struct item{
+struct item {
     string name;
     int strength;
     int defense;
@@ -13,39 +13,35 @@ struct item{
     int price;
 };
 
-//Tipos de armas
-item sword;//atq ++
-item mace;//atq+,vida+
-item gauntlet;//atq+,def+,vida+
-item sword_shield;//atq+ def+
+// Types of weapons
+item sword;// atk++
+item mace;// atk+, health+
+item gauntlet;// atk+,def+, health+
+item sword_shield;// atk+, def+
 
 item weapons[4] = {sword,mace,gauntlet,sword_shield};
 
 
-//Tipos de armadura
-item light_armor;//+vida
-item medium_armor;//+vida,+def
-item heavy_armor;//+def
-item spiky_armor;//+atq,+def
-item kimono;//+atq,+vida
+// Types of armors
+item light_armor;// +health
+item medium_armor;// +health, +def
+item heavy_armor;// +def
+item spikey_armor;// +atk, +def
+item kimono;// +atk, +health
 
 item armors[5] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
 
-//Initial
-item stick;//Arma inicia
-item potato_sack;//Armadura inicial
+// Initial
+item stick;// Initial weapon
+item potato_sack;// Initial armor
 
-//Poderiamos colocar humor criando itens similares, mas comicos
-//Como por exemplo uma pedra, que teria os estatos igual o da gauntlet porem o texto de ataque seria diferente
-//Ou uma roupa de papel aluminio, coisa assim o mesmo pra monstros
-
-item get_random_weapon() {//Pega uma arma aleatória
-    int random = rand() % weapons.size();
+item get_random_weapon() {
+    int random = rand() % 4;
     return weapons[random];
 }
 
-item get_random_armor() {//Pega uma armadura aleatória
-    int random = rand() % armors.size();
+item get_random_armor() {
+    int random = rand() % 5;
     return armors[random];
 }
 
@@ -65,21 +61,39 @@ item join_item_alterer(item i, alterer a, int gameProgressMultiplyer) {
     return new_item;
 }
 
-item generate_weapon(int gameProgressMultiplyer) {//Gera uma arma aleatória
+item generate_weapon(int gameProgressMultiplyer) {
     item random_weapon = get_random_weapon();
     alterer random_alterer = get_random_item_alterer();
     return join_item_alterer(random_weapon, random_alterer, gameProgressMultiplyer);
 }
 
-item generate_armor(int gameProgressMultiplyer) { // Gera uma armadura aleatória
+item generate_armor(int gameProgressMultiplyer) {
     item random_armor = get_random_armor();
     alterer random_alterer = get_random_item_alterer();
     return join_item_alterer(random_armor, random_alterer, gameProgressMultiplyer);
 }
 
-item generate_randItem(int gameProgressMultiplyer) { //Gera um item que pode ser uma armadura ou arma,
-                                                     //A ideia é que na loja tenha 1 arma, 1 armadura e 1 rand
+item generate_randItem(int gameProgressMultiplyer) {
     int random = rand() % 1;
-    if (random) return generate_weapon();
-    else return generate_armor();
+    if (random) return generate_weapon(gameProgressMultiplyer);
+    else return generate_armor(gameProgressMultiplyer);
+}
+
+void generate_generic_item(item &i) {
+    i.name = "name";
+    i.strength = 10;
+    i.defense = 11;
+    i.health = 12;
+    i.attack = "attack";
+    i.type = "type";
+    i.price = 13;
+}
+
+void generate_all_items() {
+    for (int i = 0; i < 4; i++) {
+        generate_generic_item(weapons[i]);
+    }
+    for (int i = 0; i < 5; i++) {
+        generate_generic_item(armors[i]);
+    }
 }

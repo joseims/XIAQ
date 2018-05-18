@@ -2,8 +2,7 @@
 using namespace std;
 #include "weapon-generator.cpp"
 
-//representação do personagem
-//os atributos dele em geral são
+// Character representation
 struct main_character {
     int strength;
     int defense;
