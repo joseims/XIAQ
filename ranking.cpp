@@ -72,14 +72,3 @@ void insert(int difficulty, rank r)
 	sort_rank(difficulty);
 
 }
-
-
-
-
-
-
-
-
-
-
-
