@@ -46,38 +46,38 @@ item get_random_armor() {
     return armors[random];
 }
 
-int multiplyer_item(int attribute, int game_progress_multiplayer) {
-    return attribute * game_progress_multiplayer;
+int multiplyer_item(int attribute, int game_progress_multiplier) {
+    return attribute * game_progress_multiplier;
 }
 
-item join_item_alterer(item i, alterer a, int game_progress_multiplayer) {
+item join_item_alterer(item i, alterer a, int game_progress_multiplier) {
     item new_item;
     new_item.name = i.name + " " + a.text;
-    new_item.strength = multiplyer_item((i.strength + a.strength), game_progress_multiplayer);
-    new_item.defense = multiplyer_item((i.defense + a.defense), game_progress_multiplayer);
-    new_item.health = multiplyer_item((i.health + a.health), game_progress_multiplayer);
+    new_item.strength = multiplyer_item((i.strength + a.strength), game_progress_multiplier);
+    new_item.defense = multiplyer_item((i.defense + a.defense), game_progress_multiplier);
+    new_item.health = multiplyer_item((i.health + a.health), game_progress_multiplier);
     new_item.attack = i.attack + " " + a.text;
     new_item.type = i.type;
-    new_item.price = multiplyer_item(i.price, game_progress_multiplayer);
+    new_item.price = multiplyer_item(i.price, game_progress_multiplier);
     return new_item;
 }
 
-item generate_weapon(int game_progress_multiplayer) {
+item generate_weapon(int game_progress_multiplier) {
     item random_weapon = get_random_weapon();
     alterer random_alterer = get_random_item_alterer();
-    return join_item_alterer(random_weapon, random_alterer, game_progress_multiplayer);
+    return join_item_alterer(random_weapon, random_alterer, game_progress_multiplier);
 }
 
-item generate_armor(int game_progress_multiplayer) {
+item generate_armor(int game_progress_multiplier) {
     item random_armor = get_random_armor();
     alterer random_alterer = get_random_item_alterer();
-    return join_item_alterer(random_armor, random_alterer, game_progress_multiplayer);
+    return join_item_alterer(random_armor, random_alterer, game_progress_multiplier);
 }
 
-item generate_randItem(int game_progress_multiplayer) {
+item generate_randItem(int game_progress_multiplier) {
     int random = rand() % 1;
-    if (random) return generate_weapon(game_progress_multiplayer);
-    else return generate_armor(game_progress_multiplayer);
+    if (random) return generate_weapon(game_progress_multiplier);
+    else return generate_armor(game_progress_multiplier);
 }
 
 // For temporary testing until we have defined the final values
