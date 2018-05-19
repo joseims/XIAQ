@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#include "weapon-generator.cpp"
+#include "item-generator.cpp"
 
 // Character representation
 struct main_character {
