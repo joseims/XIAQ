@@ -55,20 +55,34 @@ void sort_rank(int difficulty)
 
 }
 
-// problemas na insercao, ta inserindo o ultimo maior
 void insert(int difficulty, rank r)
 {
 	rank *rank_selected = get_rank(difficulty);
 
-	for(int i = 3; i > 0; i--)
-	{
-		if(rank_selected[i].score < r.score)
-		{
-			rank_selected[i].score = r.score;
-			rank_selected[i].name_user = r.name_user;
-		}
-	}
+	// inserir dando shift nas posicoes, lembrar (era o erro)
 
 	sort_rank(difficulty);
 
+}
+
+int main(int argc, char** argv)
+{
+
+	rank r1;
+	r1.name_user = "hiago";
+
+	r1.score = 100;
+
+	insert(1, r1);
+
+	rank r2;
+
+	r2.score = 101;
+	r2.name_user = "ls";
+
+	insert(1, r2);
+
+	see_score(1);
+
+	return 0;
 }
