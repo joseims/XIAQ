@@ -11,7 +11,7 @@ struct alterer {
     int health;
 };
 
-// defautl: there is as much for monsters as for weapons and armor
+// default: there is as much for monsters as for weapons and armor
 alterer default_;
 
 // Types of alterers for items
@@ -27,7 +27,8 @@ alterer weak;// -def
 alterer dirty;// -health
 alterer soft;// -atk
 
-alterer item_alterer[9] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
+const int N_ITEMS = 9;
+alterer item_alterer[N_ITEMS] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
 
 // Types of alterers for monsters
 // Positive alterers
@@ -46,24 +47,26 @@ alterer blind;
 alterer imaginary;
 alterer legless;
 
-alterer monster_alterer[13] = {pacifist, dumb, blind, imaginary, legless,
+const int N_MONSTERS = 13;
+alterer monster_alterer[N_MONSTERS] = {pacifist, dumb, blind, imaginary, legless,
     invisible, gigantic, three_headed, terrifying, hairy, stony, murderer, default_};
 
 alterer get_random_item_alterer() {
-    int random = rand() % 9;
+    int random = rand() % N_ITEMS;
     return item_alterer[random];
 }
 
 alterer get_random_monster_alterer() {
-    int random = rand() % 13;
+    int random = rand() % N_MONSTERS;
     return monster_alterer[random];
 }
 
+// For temporary testing until we have defined the final values
 void generate_generic_alterer(alterer &a) {
     a.text = "text";
-    a.strength = 10;
-    a.defense = 11;
-    a.health = 12;
+    a.strength = 10 + (rand() % 5);
+    a.defense = 10 + (rand() % 5);
+    a.health = 10 + (rand() % 5);
 }
 
 void generate_all_alterers() {
