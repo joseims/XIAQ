@@ -74,7 +74,7 @@ item generate_armor(int game_progress_multiplier) {
     return join_item_alterer(random_armor, random_alterer, game_progress_multiplier);
 }
 
-item generate_randItem(int game_progress_multiplier) {
+item generate_rand_item(int game_progress_multiplier) {
     int random = rand() % 1;
     if (random) return generate_weapon(game_progress_multiplier);
     else return generate_armor(game_progress_multiplier);
