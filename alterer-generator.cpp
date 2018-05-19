@@ -27,8 +27,8 @@ alterer weak;// -def
 alterer dirty;// -health
 alterer soft;// -atk
 
-const int N_ITEMS = 9;
-alterer item_alterer[N_ITEMS] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
+const int N_ITEMS_ALTERERS = 9;
+alterer item_alterer[N_ITEMS_ALTERERS] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
 
 // Types of alterers for monsters
 // Positive alterers
@@ -47,17 +47,17 @@ alterer blind;
 alterer imaginary;
 alterer legless;
 
-const int N_MONSTERS = 13;
-alterer monster_alterer[N_MONSTERS] = {pacifist, dumb, blind, imaginary, legless,
+const int N_MONSTERS_ALTERERS = 13;
+alterer monster_alterer[N_MONSTERS_ALTERERS] = {pacifist, dumb, blind, imaginary, legless,
     invisible, gigantic, three_headed, terrifying, hairy, stony, murderer, default_};
 
 alterer get_random_item_alterer() {
-    int random = rand() % N_ITEMS;
+    int random = rand() % N_ITEMS_ALTERERS;
     return item_alterer[random];
 }
 
 alterer get_random_monster_alterer() {
-    int random = rand() % N_MONSTERS;
+    int random = rand() % N_MONSTERS_ALTERERS;
     return monster_alterer[random];
 }
 

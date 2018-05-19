@@ -9,7 +9,7 @@ struct monster {
     int defense;
     int health;
     string attack;
-    int progressMultiplier;
+    int progress_multiplier;
     int coins;
 };
 
@@ -41,7 +41,7 @@ monster join_monster_alterer(monster m, alterer a, int game_progress_multiplier)
     new_monster.defense = multiplyer_monster((m.defense + a.defense), game_progress_multiplier);
     new_monster.health = multiplyer_monster((m.health + a.health), game_progress_multiplier);
     new_monster.attack = m.attack + " " + a.text;
-    new_monster.progressMultiplier = m.progressMultiplier;
+    new_monster.progress_multiplier = m.progress_multiplier;
     new_monster.coins = multiplyer_monster(m.coins, game_progress_multiplier);
     return new_monster;
 }
@@ -59,7 +59,7 @@ void generate_generic_monster(monster &m) {
     m.defense = 10 + (rand() % 5);
     m.health = 10 + (rand() % 5);
     m.attack = "attack";
-    m.progressMultiplier = 10 + (rand() % 5);
+    m.progress_multiplier = 10 + (rand() % 5);
     m.coins = 10 + (rand() % 5);
 }
 
