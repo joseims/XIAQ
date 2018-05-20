@@ -28,7 +28,7 @@ vector<rank> get_rank(int difficulty)
 	}
 }
 
-void see_score(int difficulty)
+void see_all_score(int difficulty)
 {
 
 	vector<rank> get_vector = get_rank(difficulty);
@@ -40,16 +40,16 @@ void see_score(int difficulty)
 
 }
 
-bool operator<(const rank& r1, const rank& r2)
+bool compare(const rank& r1, const rank& r2)
 {
 	return r1.score < r2.score;
 }
 
 void sort_vector()
 {
-	sort(storage_easy.begin(), storage_easy.end());
-	sort(storage_medium.begin(), storage_medium.end());
-	sort(storage_hard.begin(), storage_hard.end());
+	stable_sort(storage_easy.begin(), storage_easy.end(), compare);
+	stable_sort(storage_medium.begin(), storage_medium.end(), compare);
+	stable_sort(storage_hard.begin(), storage_hard.end(), compare);
 }
 
 void insert(int difficulty, string name, int new_score)
@@ -87,35 +87,4 @@ void see_three_highest_score(int difficulty)
 		count++;
 	}
 
-
-}
-
-int main(int argc, char** argv)
-{
-
-	rank r1;
-	r1.name_user = "hiago";
-
-	r1.score = 100;
-
-	insert(1, r1.name_user, r1.score);
-
-	rank r2;
-
-	r2.score = 101;
-	r2.name_user = "ls";
-
-	insert(1, r2.name_user, r2.score);
-
-	insert(1, "oi", 1000);
-
-	insert(1, "blabla", 102);
-
-	insert(1, "hiago2", 100);
-
-	//see_score(1);
-
-	see_three_highest_score(1);
-
-	return 0;
 }
