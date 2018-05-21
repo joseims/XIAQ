@@ -8,9 +8,7 @@ struct rank
 	int score;
 };
 
-vector<rank> storage_easy;
-vector<rank> storage_medium;
-vector<rank> storage_hard;
+vector<rank> storage_easy, storage_medium, storage_hard;
 
 vector<rank> get_rank(int difficulty)
 {
@@ -88,3 +86,12 @@ void see_three_highest_score(int difficulty)
 	}
 
 }
+
+int main() {
+	
+	insert(2, "hiago", 100);
+	
+	see_all_score(2);
+	
+}
+
