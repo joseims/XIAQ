@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-#include "alterer-generator.cpp"
-
 using namespace std;
 
 struct monster {
@@ -22,7 +19,7 @@ monster vampire;
 monster werewolf;
 monster giant_mouse;
 
-cost int N_MONSTERS = 7;
+const int N_MONSTERS = 7;
 monster monsters[N_MONSTERS] = {thief, dragon, golem, blob, vampire, werewolf, giant_mouse};
 
 monster get_random_monster() {
