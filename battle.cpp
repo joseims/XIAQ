@@ -16,7 +16,7 @@ struct hero_in_battle : in_battle {
     main_character hero;
 };
 
-struct monster_in_battle : in_battle {
+struct enemy_in_battle : in_battle {
     monster enemy;
 };
 
@@ -42,63 +42,86 @@ int coin_toss() {
 }
 
 int get_battle_action() {
+    // Get user's input for action
     int action;
     cout << "1 for Attack, 2 for Defend, 3 for Super Attack, 4 to use a potion" << endl;
     cout << "Action: ";
     cin >> action;
     cout << endl;
+
+    return action;
 }
 
-int hero_attacks(hero_in_battle hero, monster enemy) {
+void heros_turn(hero_in_battle hero, enemy_in_battle enemy) {
     int action;
-
     cout << "Choose your action:" << endl;
+
     while (1) {
         action = get_battle_action();
-        if (action == 1) {
-            enemy.health -= hero.hero.strength;
-            return 1;
-        } else if (action == 2) {
-            return 0;
-        } else if (action == 3) {
-            if (hero.consecutive_defending > 2) {
-                enemy.health -= hero.hero.strength * 3;
+
+        switch (action) {
+            case 1:
+                // Enemy's HP is damaged by hero's strength
+                enemy.health -= hero_battle.hero.strength;
                 hero.consecutive_defending = 0;
-                return 1;
-            } else {
-                cout << "You cannot use your super attack yet." << endl;
-            }
-        } else if (action == 4) {
-            if (hero.hero.potion > 0) {
-                hero.hero.potion -= 1;
-                hero.hero.health += 15;
-            } else {
-                cout << "You don't have any more potions. Try something else." << endl;
-            }
-        } else {
-            cout << "Invalid action." << endl;
+                break;
+
+            case 2:
+                // Hero's consecutive rounds defending increases by 1
+                hero.consecutive_defending += 1;
+                break;
+
+            case 3:
+                if (hero.consecutive_defending > 2) {
+                    // Enemy's HP is damaged by hero's strength * 3
+                    enemy.health -= hero_battle.hero.strength * 3;
+                    hero.consecutive_defending = 0;
+                } else {
+                    cout << "You cannot use your super attack yet." << endl;
+                }
+                break;
+            case 4:
+                // Hero uses potion if he has any
+                if (hero_battle.hero.potion > 0) {
+                    hero_battle.hero.potion -= 1;
+                    hero_battle.hero.health += 15;
+                } else {
+                    cout << "You don't have any more potions. Try something else." << endl;
+                }
+                break;
+
+            default:
+                cout << "Invalid action." << endl;
+                break;
         }
     }
 }
 
-void monster_attacks(hero_in_battle hero, monster_in_battle monster) {
-    int damage = monster.enemy.strength;
-    if (monster.enemy.defense > monster.enemy.strength) {
-        if (monster.consecutive_defending > 2) {
-            hero.hero.health -= damage * 3;
-            monster.consecutive_defending = 0;
+void enemys_turn(hero_in_battle hero_battle, enemy_in_battle enemy_battle) {
+    // Enemy's attacks can follow 2 different strategies:
+    // The first occurs when the monster's defense is higher than
+    // his strength, the second occurs otherwise
+    int damage = enemy_battle.enemy.strength;
+
+    if (enemy_battle.enemy.defense > monster.enemy.strength) {
+        // First strategy: Monster prioritizes super attack
+        if (enemy_battle.consecutive_defending > 2) {
+            hero_battle.hero.health -= damage * 3;
+            enemy_battle.consecutive_defending = 0;
         } else {
             monster.consecutive_defending++;
         }
     } else {
-        hero.hero.health -= damage;
+        // Second strategy: monster always attacks
+        hero_battle.hero.health -= damage;
         if (hero.consecutive_defending > 0) {
-            hero.hero.health += hero.hero.defense;
+            hero_battle.hero.health += hero_battle.hero.defense;
         }
     }
 }
 
 string term(int round) {
+    // Method to get the termination to the round counter
     string terms[4] = {"st", "nd", "rd", "th"};
     if (round > 3) round = 3;
     return terms[round];
@@ -107,22 +130,27 @@ string term(int round) {
 void initial_message(main_character hero) {
     cout << "THE BATTLE IS ABOUT TO BEGIN!!" << endl;
     cout << "Remember Hero, your status is: " << endl;
-    cout << "Attack: " << hero.strength << endl;
+    cout << "Strength: " << hero.strength << endl;
     cout << "Defense: " << hero.defense << endl;
     cout << "Health: " << hero.health << "/" << hero.max_health << endl;
     cout << "You have " << hero.potion << " potions. Use them wisely!" << endl << endl;
 }
 
 void battle_workflow(main_character hero, monster enemy) {
+    // Displays initial message
     initial_message(hero);
+
+    // Sets hero in battle
     hero_in_battle hero_battle;
     hero_battle.hero = hero;
     hero_battle.consecutive_defending = 0;
 
-    monster_in_battle monster_battle;
-    monster_battle.enemy = enemy;
-    monster_battle.consecutive_defending = 0;
+    // Sets enemy in battle
+    enemy_in_battle enemy_battle;
+    enemy_battle.enemy = enemy;
+    enemy_battle.consecutive_defending = 0;
 
+    // 
     int round = 1;
     int result = coin_toss();
 
@@ -131,11 +159,11 @@ void battle_workflow(main_character hero, monster enemy) {
             cout << "THE " << round << term(round / 2) << " ROUND BEGINS!" << endl;
         }
         if (result) {
-            hero_attacks(hero_battle, enemy);
-            monster_attacks(hero_battle, monster_battle);
+            heros_turn(hero_battle, enemy);
+            enemys_turn(hero_battle, enemy_battle);
         } else {
-            monster_attacks(hero_battle, monster_battle);
-            hero_attacks(hero_battle, enemy);
+            enemys_turn(hero_battle, enemy_battle);
+            heros_turn(hero_battle, enemy);
         }
         result = !result;
         round++;
