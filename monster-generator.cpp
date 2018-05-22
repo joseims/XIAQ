@@ -64,7 +64,7 @@ void generate_generic_monster(monster &m) {
 }
 
 void generate_all_monsters() {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < N_MONSTERS; i++) {
         generate_generic_monster(monsters[i]);
     }
 }

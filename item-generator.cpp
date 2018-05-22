@@ -92,10 +92,10 @@ void generate_generic_item(item &i) {
 }
 
 void generate_all_items() {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < N_WEAPONS; i++) {
         generate_generic_item(weapons[i]);
     }
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < N_ARMORS; i++) {
         generate_generic_item(armors[i]);
     }
 }
