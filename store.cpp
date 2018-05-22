@@ -24,13 +24,14 @@ void print_potion(int game_progress_multiplier) {
 
 
 item get_same_type_equipped_item(string item_type, main_character character) {
+    item new_item;
     if (item_type == ARMOR_TYPE) {
-        return character.armor;
+        new_item = character.armor;
     } else if (item_type == WEAPON_TYPE){
-        return character.weapon;
+        new_item = character.weapon;
     }
 
-    return character.weapon;//just for future changes the else if is for code clarification
+    return new_item;
 };
 
 
