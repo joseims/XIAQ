@@ -1,28 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 #include "item-generator.cpp"
-#include "main-character"
+#include "main-character.cpp"
 
 item itens[3];
-bool is_bought[3];
-int potion_price = 5;
+bool bought[3];
+const int potion_price = 5;
 int actual_potion_price;
-string potion_text = "Poção (Recupera X de vida)";
-string store_welcome_text = "BEM VINDO MEU PARCEIRO\n";
-string already_bought_text = "Você já comprou esse item, escolha novamente\n";
-string exit_text = "Xau xau meu parceiro\n";
-string not_enought_coins_text = "Sinto muito, você não me parece ter dinheiro suficiente para comprar isso\n";
-string invalid_option_text= "Opção Inválida, escolha novamente\n";
+const string potion_text = "Poção (Recupera X de vida)";
+const string store_welcome_text = "BEM VINDO MEU PARCEIRO\n";
+const string already_bought_text = "Você já comprou esse item, escolha novamente\n";
+const string exit_text = "Xau xau meu parceiro\n";
+const string not_enought_coins_text = "Sinto muito, você não me parece ter dinheiro suficiente para comprar isso\n";
+const string invalid_option_text= "Opção Inválida, escolha novamente\n";
 
 void see_store(main_character character) {
     calculate_actual_potion_price(character);
     printf("%s",store_welcome_text );
-    int game_progress_multiplyer = character.gameProgressMultiplyer;
+    int game_progress_multiplyer = character.game_progress_multiplyer;
     reset_is_bought();
     itens[0] = generate_weapon(game_progress_multiplyer);
     itens[1] = generate_armor(game_progress_multiplyer);
     itens[2] = generate_rand_item(game_progress_multiplyer);
-    run_store();
+    run_store(character,game_progress_multiplyer);
     
 };
 
@@ -30,34 +30,35 @@ void calculate_actual_potion_price(main_character main_character) {
     actual_potion_price = potion_price * character.game_progress_multiplyer;
 }
 
-void run_store(main_character character) {
+void run_store(main_character character,int game_progress_multiplyer) {
     printf("\n\n");
-    print_menu(character);
+    print_menu(character,game_progress_multiplyer);
     buying_menu(character);
 }
 
 void reset_is_bought(){
     for (int i = 0; i< 3; i ++) {
-        is_bought[i] = false;
+        bought[i] = false;
     }
 };
 
 void exit_store() {
-    print("%s",exit_text);
+    printf("%s",exit_text);
 };
 
 void buy_item(main_character character, item item,int index) {
     if (can_buy_it(character,item.price)) {
         character.coins -= item.price;
-        equip_item(character,item);
-        is_bought[index] = true;
+        equip_item(character,item,index);
+        bought[index] = true;
     } else {
         printf("%s",not_enought_coins_text);
     }
-    run_store();
+    run_store(character,character.game_progress_multiplyer);
 };
 
 void equip_item(main_character character, item item, int index) {
+    item old_item;
     if (item.type == ARMOR_TYPE) {
         old_item =  character.armor;
         character.armor = item;
@@ -140,7 +141,7 @@ item get_same_type_equipped_item(string item_type,main_character character) {
 };
 
 void print_item(item item,main_character character,int index){
-    if (is_bought[index]) {
+    if (bought[index]) {
         printf("[%d] (Item comprado)",index);
     } else {
         item old_item = get_same_type_equipped_item(item.type,character);
@@ -156,12 +157,12 @@ void print_potion(int game_progress_multiplyer) {
     printf("[4] %s - %d\n",potion_text,actual_potion_price);
 }
 
-void print_menu(int game_progress_multiplyer,main_character character) {
-    printf("Selecione uma opção : ")
+void print_menu(main_character character,int game_progress_multiplyer) {
+    printf("Selecione uma opção : ");
     for (int i = 0; i < 3;i++) {
         print_item(itens[i],character,i+1);
     }
     print_potion(game_progress_multiplyer);
-    print("[5] Sair da loja");
+    printf("[5] Sair da loja");
 };
 

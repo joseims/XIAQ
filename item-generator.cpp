@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
+#include "alterer-generator.cpp"
+
 using namespace std;
 
-
-string WEAPON_TYPE = "weapon";
-string ARMOR_TYPE = "armor";
-
-struct item{
+struct item {
     string name;
     int strength;
     int defense;
@@ -15,55 +13,89 @@ struct item{
     int price;
 };
 
-//Tipos de armas
-item sword;//atq ++
-item mace;//atq+,vida+
-item gauntlet;//atq+,def+,vida+
-item sword_shield;//atq+ def+
+// Types of weapons
+item sword;// atk++
+item mace;// atk+, health+
+item gauntlet;// atk+,def+, health+
+item sword_shield;// atk+, def+
 
+const int N_WEAPONS = 4;
+item weapons[N_WEAPONS] = {sword,mace,gauntlet,sword_shield};
 
+// Types of armors
+item light_armor;// +health
+item medium_armor;// +health, +def
+item heavy_armor;// +def
+item spikey_armor;// +atk, +def
+item kimono;// +atk, +health
 
-item weapons[4] = {sword,mace,gauntlet,sword_shield};
+const int N_ARMORS = 5;
+item armors[N_ARMORS] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
 
-//Tipos de armadura
-item light_armor;//+vida
-item medium_armor;//+vida,+def
-item heavy_armor;//+def
-item spiky_armor;//+atq,+def
-item kimono;//+atq,+vida
+// Initial
+item stick;// Initial weapon
+item potato_sack;// Initial armor
 
-item armors[5] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
-
-
-//Initial
-item stick;//Arma inicia
-item potato_sack;//Armadura inicial
-
-//Poderiamos colocar humor criando itens similares, mas comicos
-//Como por exemplo uma pedra, que teria os estatos igual o da gauntlet porem o texto de ataque seria diferente
-//Ou uma roupa de papel aluminio, coisa assim o mesmo pra monstros
-
-
-
-
-item generate_weapon(int game_progress_multiplyer) {//Gera uma arma aleatória
-
+item get_random_weapon() {
+    int random = rand() % N_WEAPONS;
+    return weapons[random];
 }
 
-item generate_armor(int game_progress_multiplyer) { // Gera uma armadura aleatória
-
+item get_random_armor() {
+    int random = rand() % N_ARMORS;
+    return armors[random];
 }
 
-item generate_rand_item(int game_progress_multiplyer) { //Gera um item que pode ser uma armadura ou arma, 
-                                                     //A ideia é que na loja tenha 1 arma, 1 armadura e 1 rand
-
+int multiplyer_item(int attribute, int game_progress_multiplier) {
+    return attribute * game_progress_multiplier;
 }
 
-
-item get_random_weapon() {//Pega uma arma aleatória
-
+item join_item_alterer(item i, alterer a, int game_progress_multiplier) {
+    item new_item;
+    new_item.name = i.name + " " + a.text;
+    new_item.strength = multiplyer_item((i.strength + a.strength), game_progress_multiplier);
+    new_item.defense = multiplyer_item((i.defense + a.defense), game_progress_multiplier);
+    new_item.health = multiplyer_item((i.health + a.health), game_progress_multiplier);
+    new_item.attack = i.attack + " " + a.text;
+    new_item.type = i.type;
+    new_item.price = multiplyer_item(i.price, game_progress_multiplier);
+    return new_item;
 }
 
-item get_random_armor() {//Pega uma armadura aleatória
+item generate_weapon(int game_progress_multiplier) {
+    item random_weapon = get_random_weapon();
+    alterer random_alterer = get_random_item_alterer();
+    return join_item_alterer(random_weapon, random_alterer, game_progress_multiplier);
+}
 
+item generate_armor(int game_progress_multiplier) {
+    item random_armor = get_random_armor();
+    alterer random_alterer = get_random_item_alterer();
+    return join_item_alterer(random_armor, random_alterer, game_progress_multiplier);
+}
+
+item generate_rand_item(int game_progress_multiplier) {
+    int random = rand() % 1;
+    if (random) return generate_weapon(game_progress_multiplier);
+    else return generate_armor(game_progress_multiplier);
+}
+
+// For temporary testing until we have defined the final values
+void generate_generic_item(item &i) {
+    i.name = "name";
+    i.strength = 10 + (rand() % 5);
+    i.defense = 10 + (rand() % 5);
+    i.health = 10 + (rand() % 5);
+    i.attack = "attack";
+    i.type = "type";
+    i.price = 10 + (rand() % 5);
+}
+
+void generate_all_items() {
+    for (int i = 0; i < N_WEAPONS; i++) {
+        generate_generic_item(weapons[i]);
+    }
+    for (int i = 0; i < N_ARMORS; i++) {
+        generate_generic_item(armors[i]);
+    }
 }
