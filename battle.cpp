@@ -4,7 +4,8 @@
 
 using namespace std;
 
-struct in_battle {
+struct hero_in_battle {
+    main_character hero;
     int consecutive_defending;
     // The hero in battle also has another attribute to 
     // check whatever was his last action. But, this
@@ -12,12 +13,13 @@ struct in_battle {
     // rounds defending: if > 0, last action was a defense
 };
 
-struct hero_in_battle : in_battle {
-    main_character hero;
-};
-
 struct enemy_in_battle : in_battle {
     monster enemy;
+    int consecutive_defending;
+    // The hero in battle also has another attribute to 
+    // check whatever was his last action. But, this
+    // attribute can be derive from the consecutive 
+    // rounds defending: if > 0, last action was a defense
 };
 
 int coin_toss() {
@@ -136,7 +138,7 @@ void initial_message(main_character hero) {
     cout << "You have " << hero.potion << " potions. Use them wisely!" << endl << endl;
 }
 
-void battle_workflow(main_character hero, monster enemy) {
+int battle_workflow(main_character hero, monster enemy) {
     // Displays initial message
     initial_message(hero);
 
@@ -168,4 +170,8 @@ void battle_workflow(main_character hero, monster enemy) {
         result = !result;
         round++;
     }
+    if (hero > 0) {
+        return 1;
+    }
+    return 0;
 }
