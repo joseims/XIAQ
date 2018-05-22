@@ -10,7 +10,9 @@ struct main_character {
     int max_health;
     item weapon;
     item armor;
-    int game_progress_multiplyer;
+    int game_progress_multiplier;
     int coins;
     int potion;
-} character;
+};
+
+main_character character;
