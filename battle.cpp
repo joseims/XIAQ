@@ -52,7 +52,7 @@ int get_battle_action() {
     return action;
 }
 
-void heros_turn(hero_in_battle hero, enemy_in_battle enemy) {
+void heros_turn(hero_in_battle hero_battle, enemy_in_battle enemy_battle) {
     int action;
     cout << "Choose your action:" << endl;
 
@@ -62,20 +62,20 @@ void heros_turn(hero_in_battle hero, enemy_in_battle enemy) {
         switch (action) {
             case 1:
                 // Enemy's HP is damaged by hero's strength
-                enemy.health -= hero_battle.hero.strength;
-                hero.consecutive_defending = 0;
+                enemy_battle.enemy.health -= hero_battle.hero.strength;
+                hero_battle.consecutive_defending = 0;
                 break;
 
             case 2:
                 // Hero's consecutive rounds defending increases by 1
-                hero.consecutive_defending += 1;
+                hero_battle.consecutive_defending += 1;
                 break;
 
             case 3:
-                if (hero.consecutive_defending > 2) {
+                if (hero_battle.consecutive_defending > 2) {
                     // Enemy's HP is damaged by hero's strength * 3
-                    enemy.health -= hero_battle.hero.strength * 3;
-                    hero.consecutive_defending = 0;
+                    enemy_battle.enemy.health -= hero_battle.hero.strength * 3;
+                    hero_battle.consecutive_defending = 0;
                 } else {
                     cout << "You cannot use your super attack yet." << endl;
                 }
@@ -103,18 +103,18 @@ void enemys_turn(hero_in_battle hero_battle, enemy_in_battle enemy_battle) {
     // his strength, the second occurs otherwise
     int damage = enemy_battle.enemy.strength;
 
-    if (enemy_battle.enemy.defense > monster.enemy.strength) {
+    if (enemy_battle.enemy.defense > enemy_battle.enemy.strength) {
         // First strategy: Monster prioritizes super attack
         if (enemy_battle.consecutive_defending > 2) {
             hero_battle.hero.health -= damage * 3;
             enemy_battle.consecutive_defending = 0;
         } else {
-            monster.consecutive_defending++;
+            enemy_battle.consecutive_defending++;
         }
     } else {
         // Second strategy: monster always attacks
         hero_battle.hero.health -= damage;
-        if (hero.consecutive_defending > 0) {
+        if (hero_battle.consecutive_defending > 0) {
             hero_battle.hero.health += hero_battle.hero.defense;
         }
     }
@@ -159,11 +159,11 @@ void battle_workflow(main_character hero, monster enemy) {
             cout << "THE " << round << term(round / 2) << " ROUND BEGINS!" << endl;
         }
         if (result) {
-            heros_turn(hero_battle, enemy);
+            heros_turn(hero_battle, enemy_battle);
             enemys_turn(hero_battle, enemy_battle);
         } else {
             enemys_turn(hero_battle, enemy_battle);
-            heros_turn(hero_battle, enemy);
+            heros_turn(hero_battle, enemy_battle);
         }
         result = !result;
         round++;
