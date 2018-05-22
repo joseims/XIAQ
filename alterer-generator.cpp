@@ -38,28 +38,28 @@ alterer weak;//-def
 alterer dirty;//-vida
 alterer soft;//-atq
 
-alterer weapon_alterer[8] = {enraged,shiny,tought,legendary,irreparable,weak,dirty,soft,default_};
+alterer weapon_alterer[9] = {enraged,shiny,tought,legendary,irreparable,weak,dirty,soft,default_};
 
 //Tipos de alterador para mostros
 //Negativos
-alterer weak;
-alterer pacifist;
-alterer dumb;
-alterer blind;
-alterer imaginary;
-alterer legless;
+alterer monster_weak;
+alterer monster_pacifist;
+alterer monster_dumb;
+alterer monster_blind;
+alterer monster_imaginary;
+alterer monster_legless;
 
 //Positivos
-alterer invisible;
-alterer gigantic;
-alterer three_headed;
-alterer terrifying;
-alterer hairy;
-alterer stony;
-alterer murderer;
+alterer monster_invisible;
+alterer monster_gigantic;
+alterer monster_three_headed;
+alterer monster_terrifying;
+alterer monster_hairy;
+alterer monster_stony;
+alterer monster_murderer;
 
 
-alterer monster_alterer[13] = {weak,pacifist,dumb,blind,imaginary,legless,invisible,gigantic,three_headed,terrifying,hairy,stony,murderer,default_};
+alterer monster_alterer[14] = {monster_weak,monster_pacifist,monster_dumb,monster_blind,monster_imaginary,monster_legless,monster_invisible,monster_gigantic,monster_three_headed,monster_terrifying,monster_hairy,monster_stony,monster_murderer,default_};
 
 
 
