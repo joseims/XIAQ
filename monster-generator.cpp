@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-#include "alterer-generator.cpp"
-
 using namespace std;
 
 struct monster {

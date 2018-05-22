@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#include "item-generator.cpp"
+
 
 // Character representation
 struct main_character {

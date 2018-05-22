@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
 using namespace std;
-#include "main-character.cpp"
 
 
 
@@ -174,8 +172,3 @@ void see_store(main_character character) {
     run_store(character);
     
 };
-
-main() {
-
-};
-
