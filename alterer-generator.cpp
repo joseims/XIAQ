@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//Alterers são adjetivos
-//Irão alterar tanto armaduras quanto armas e monstros
-//Porém o conjunto de alterardores de armas e armaduras são diferentes dos alteradores de monstros
+// Alterers are adjectives
+// Change armor, weapons and monsters
+// The set of items alterers are different from the monster alterers
 struct alterer {
     string text;
     int strength;
@@ -11,56 +11,69 @@ struct alterer {
     int health;
 };
 
-
-
-alterer get_random_weapon_alterer(){//Pega um alterador aleatório da lista
-
-}
-
-alterer get_random_monster_alterer(){//Pega um alterador aleatório da lista
-
-}
-
-//defautl
-//Existe tanto para monstros quanto para armas
+// default: there is as much for monsters as for weapons and armor
 alterer default_;
 
-//Tipos de alteradores para armas
-//Alteradores positivos
-alterer enraged;//+atq
-alterer shiny;//+vida
-alterer tought;//+def
-alterer legendary;//+atq,+def,+vida
+// Types of alterers for items
+// Positive alterers
+alterer enraged;// +atk
+alterer shiny;// +health
+alterer tought;// +def
+alterer legendary;// +atk, +def, +health
 
-//Alteradores negativos
-alterer irreparable;//-atq,-def,-vida
-alterer weak;//-def
-alterer dirty;//-vida
-alterer soft;//-atq
+// Negative alterers
+alterer irreparable;// -atk, -def, -health
+alterer weak;// -def
+alterer dirty;// -health
+alterer soft;// -atk
 
-alterer weapon_alterer[9] = {enraged,shiny,tought,legendary,irreparable,weak,dirty,soft,default_};
+const int N_ITEMS_ALTERERS = 9;
+alterer item_alterer[N_ITEMS_ALTERERS] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
 
-//Tipos de alterador para mostros
-//Negativos
-alterer monster_weak;
-alterer monster_pacifist;
-alterer monster_dumb;
-alterer monster_blind;
-alterer monster_imaginary;
-alterer monster_legless;
+// Types of alterers for monsters
+// Positive alterers
+alterer invisible;
+alterer gigantic;
+alterer three_headed;
+alterer terrifying;
+alterer hairy;
+alterer stony;
+alterer murderer;
 
-//Positivos
-alterer monster_invisible;
-alterer monster_gigantic;
-alterer monster_three_headed;
-alterer monster_terrifying;
-alterer monster_hairy;
-alterer monster_stony;
-alterer monster_murderer;
+// Negative alterers
+alterer pacifist;
+alterer dumb;
+alterer blind;
+alterer imaginary;
+alterer legless;
 
+const int N_MONSTERS_ALTERERS = 13;
+alterer monster_alterer[N_MONSTERS_ALTERERS] = {pacifist, dumb, blind, imaginary, legless,
+    invisible, gigantic, three_headed, terrifying, hairy, stony, murderer, default_};
 
-alterer monster_alterer[14] = {monster_weak,monster_pacifist,monster_dumb,monster_blind,monster_imaginary,monster_legless,monster_invisible,monster_gigantic,monster_three_headed,monster_terrifying,monster_hairy,monster_stony,monster_murderer,default_};
+alterer get_random_item_alterer() {
+    int random = rand() % N_ITEMS_ALTERERS;
+    return item_alterer[random];
+}
 
+alterer get_random_monster_alterer() {
+    int random = rand() % N_MONSTERS_ALTERERS;
+    return monster_alterer[random];
+}
 
+// For temporary testing until we have defined the final values
+void generate_generic_alterer(alterer &a) {
+    a.text = "text";
+    a.strength = 10 + (rand() % 5);
+    a.defense = 10 + (rand() % 5);
+    a.health = 10 + (rand() % 5);
+}
 
-
+void generate_all_alterers() {
+    for (int i = 0; i < 9; i++) {
+        generate_generic_alterer(item_alterer[i]);
+    }
+    for (int i = 0; i < 13; i++) {
+        generate_generic_alterer(monster_alterer[i]);
+    }
+}
