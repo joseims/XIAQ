@@ -13,7 +13,7 @@ struct hero_in_battle {
     // rounds defending: if > 0, last action was a defense
 };
 
-struct enemy_in_battle : in_battle {
+struct enemy_in_battle {
     monster enemy;
     int consecutive_defending;
     // The hero in battle also has another attribute to 
