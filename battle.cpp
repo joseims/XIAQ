@@ -170,7 +170,7 @@ int battle_workflow(main_character hero, monster enemy) {
         result = !result;
         round++;
     }
-    if (hero > 0) {
+    if (hero.health > 0) {
         return 1;
     }
     return 0;
