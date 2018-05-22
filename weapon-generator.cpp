@@ -29,7 +29,7 @@ item heavy_armor;//+def
 item spiky_armor;//+atq,+def
 item kimono;//+atq,+vida
 
-item armors[5] = {light_armor,medium_armor,heavy_armor,spiky_armor,kimono};
+item armors[5] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
 
 
 //Initial
