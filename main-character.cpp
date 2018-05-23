@@ -1,6 +1,5 @@
 using namespace std;
 
-
 // Character representation
 struct main_character {
     int strength;

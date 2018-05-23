@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#include "main-character.cpp"
-#include "monster-generator.cpp"
 
 using namespace std;
 

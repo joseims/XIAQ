@@ -1,7 +1,5 @@
 using namespace std;
 
-
-
 item itens[3];
 bool bought[3];
 const int POTION_PRICE = 5;
