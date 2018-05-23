@@ -1,3 +1,5 @@
+#ifndef ALTERER_CPP
+#define ALTERER_CPP
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -77,3 +79,5 @@ void generate_all_alterers() {
         generate_generic_alterer(monster_alterer[i]);
     }
 }
+
+#endif

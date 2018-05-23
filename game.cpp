@@ -6,10 +6,10 @@
 
 using namespace std;
 
-const string INTRODUCTION = "";
+const string INTRODUCTION = "BEM VINDO AO XIAQ\n";
 const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalha..\n";
-const string OPTIONS_MESSAGE = "Digite 1 caso deseje ir a loja ou 1 se quiser continuar batalhando.";
-const string LOSS_MESSAGE = "Infelizmente chegamos ao fim após essa derrota.";
+const string OPTIONS_MESSAGE = "Digite 1 caso deseje ir a loja ou 1 se quiser continuar batalhando.\n";
+const string LOSS_MESSAGE = "Infelizmente chegamos ao fim após essa derrota.\n";
 
 void start_game(main_character character, monster enemy) {
   //Select the difficult level before start the game.

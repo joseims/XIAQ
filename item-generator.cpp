@@ -1,3 +1,6 @@
+#ifndef ITEM_CPP
+#define ITEM_CPP
+#include "alterer-generator.cpp"
 using namespace std;
 
 struct item {
@@ -96,3 +99,5 @@ void generate_all_items() {
         generate_generic_item(armors[i]);
     }
 }
+
+#endif

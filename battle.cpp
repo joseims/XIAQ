@@ -1,3 +1,7 @@
+#ifndef BATTLE_CPP
+#define BATTLE_CPP
+#include "main-character.cpp"
+#include "monster-generator.cpp"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -173,3 +177,5 @@ int battle_workflow(main_character hero, monster enemy) {
     }
     return 0;
 }
+
+#endif

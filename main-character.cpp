@@ -1,3 +1,6 @@
+#ifndef CHARACTER_CPP
+#define CHARACTER_CPP
+#include "item-generator.cpp"
 using namespace std;
 
 // Character representation
@@ -14,3 +17,5 @@ struct main_character {
 };
 
 main_character character;
+
+#endif
