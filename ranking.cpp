@@ -76,22 +76,20 @@ void insert(int difficulty, string name, int new_score)
 
 void see_three_highest_score(int difficulty)
 {
-
-	int count = 1;
-
-	while (count != 4)
+	
+	vector<rank> get_vector = get_rank(difficulty);
+	
+	if(get_vector.size() < 3) {
+		for(int i = get_vector.size() - 1; i >= 0; i--)
+		{
+			cout << get_vector[i].name_user << " " << get_vector[i].score << endl;
+		}
+	} else
 	{
-		cout << get_rank(difficulty)[get_rank(difficulty).size() - count].name_user << " " << get_rank(difficulty)[get_rank(difficulty).size() - count].score << endl;
-		count++;
+		for(int i = get_vector.size() - 1; i >= get_vector.size() - 3; i--)
+		{
+			cout << get_vector[i].name_user << " " << get_vector[i].score << endl;	
+		}
 	}
 
 }
-
-int main() {
-	
-	insert(2, "hiago", 100);
-	
-	see_all_score(2);
-	
-}
-
