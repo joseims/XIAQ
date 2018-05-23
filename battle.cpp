@@ -7,7 +7,7 @@
 using namespace std;
 
 struct hero_in_battle {
-    main_character hero;
+    main_character *hero;
     int consecutive_defending;
     // The hero in battle also has another attribute to 
     // check whatever was his last action. But, this
@@ -16,7 +16,7 @@ struct hero_in_battle {
 };
 
 struct enemy_in_battle {
-    monster enemy;
+    monster *enemy;
     int consecutive_defending;
     // The hero in battle also has another attribute to 
     // check whatever was his last action. But, this
@@ -58,7 +58,7 @@ int get_battle_action() {
     return action;
 }
 
-void heros_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
+void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     int action;
     cout << "Escolha sua ação:" << endl;
     bool done = true;
@@ -68,10 +68,10 @@ void heros_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
         switch (action) {
             case 1: {
                 // Enemy's HP is damaged by hero's strength
-                int damage_a = hero_battle.hero.strength;
+                int damage_a = hero_battle->hero->strength;
                 cout << "Você causou " << damage_a << " de dano ao inimigo." << endl;
-                enemy_battle.enemy.health -= damage_a;
-                hero_battle.consecutive_defending = 0;
+                enemy_battle->enemy->health -= damage_a;
+                hero_battle->consecutive_defending = 0;
             }
             done = false;
             break;
@@ -79,18 +79,18 @@ void heros_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
             case 2: {
                 // Hero's consecutive rounds defending increases by 1
                 cout << "Você está em posição defensiva!";
-                hero_battle.consecutive_defending += 1;
+                hero_battle->consecutive_defending += 1;
             }
             done = false;
             break;
 
             case 3: {
-                if (hero_battle.consecutive_defending > 2) {
+                if (hero_battle->consecutive_defending > 2) {
                     // Enemy's HP is damaged by hero's strength * 3
-                    int damage_b = hero_battle.hero.strength * 3;
+                    int damage_b = hero_battle->hero->strength * 3;
                     cout << "Você causou " << damage_b << " de dano ao inimigo." << endl;
-                    enemy_battle.enemy.health -= damage_b;
-                    hero_battle.consecutive_defending = 0;
+                    enemy_battle->enemy->health -= damage_b;
+                    hero_battle->consecutive_defending = 0;
                     done = false;
                 } else {
                     cout << "Você ainda não pode usar o super ataque." << endl;
@@ -99,10 +99,10 @@ void heros_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
             break;
             case 4: {
                 // Hero uses potion if he has any
-                if (hero_battle.hero.potion > 0) {
+                if (hero_battle->hero->potion > 0) {
                     cout << "Você usou uma poção e recuperou 15 de vida!" << endl;
-                    hero_battle.hero.potion -= 1;
-                    hero_battle.hero.health += 15;
+                    hero_battle->hero->potion -= 1;
+                    hero_battle->hero->health += 15;
                     done = false;
                 } else {
                     cout << "Você não tem mais poções. Tente algo diferente." << endl;
@@ -118,28 +118,31 @@ void heros_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
     }
 }
 
-void enemys_turn(hero_in_battle& hero_battle, enemy_in_battle& enemy_battle) {
+void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     // Enemy's attacks can follow 2 different strategies:
     // The first occurs when the monster's defense is higher than
     // his strength, the second occurs otherwise
-    int damage = enemy_battle.enemy.strength;
+    int damage = enemy_battle->enemy->strength;
 
-    if (enemy_battle.enemy.defense > enemy_battle.enemy.strength) {
+    if (enemy_battle->enemy->defense > enemy_battle->enemy->strength) {
         // First strategy: Monster prioritizes super attack
-        if (enemy_battle.consecutive_defending > 2) {
+        if (enemy_battle->consecutive_defending > 2) {
             cout << "O inimigo usou o super ataque! Você sofreu " << damage * 3 << " de dano!" << endl;
-            hero_battle.hero.health -= damage * 3;
-            enemy_battle.consecutive_defending = 0;
+            hero_battle->hero->health -= damage * 3;
+            if (hero_battle->consecutive_defending > 0) {
+                hero_battle->hero->health += hero_battle->hero->defense;
+            }
+            enemy_battle->consecutive_defending = 0;
         } else {
             cout << "O inimigo ficou em posição defensiva." << endl;
-            enemy_battle.consecutive_defending++;
+            enemy_battle->consecutive_defending++;
         }
     } else {
         // Second strategy: monster always attacks
         cout << "O inimigo te atacou! Você sofreu " << damage << " de dano!" << endl;
-        hero_battle.hero.health -= damage;
-        if (hero_battle.consecutive_defending > 0) {
-            hero_battle.hero.health += hero_battle.hero.defense;
+        hero_battle->hero->health -= damage;
+        if (hero_battle->consecutive_defending > 0) {
+            hero_battle->hero->health += hero_battle->hero->defense;
         }
     }
 }
@@ -159,33 +162,31 @@ int battle_workflow(main_character& hero, monster& enemy) {
 
     // Sets hero in battle
     hero_in_battle hero_battle;
-    hero_battle.hero = hero;
+    hero_battle.hero = &hero;
     hero_battle.consecutive_defending = 0;
 
     // Sets enemy in battle
     enemy_in_battle enemy_battle;
-    enemy_battle.enemy = enemy;
+    enemy_battle.enemy = &enemy;
     enemy_battle.consecutive_defending = 0;
 
     int round = 3;
     int result = coin_toss();
 
-    while (hero_battle.hero.health > 0 && enemy_battle.enemy.health > 0) {
+    while (hero_battle.hero->health > 0 && enemy_battle.enemy->health > 0) {
         if (round % 2 == 1) {
             cout << "Inicia-se o " << round/2 << "° round!" << endl << endl;
         }
         if (result) {
-            heros_turn(hero_battle, enemy_battle);
+            heros_turn(&hero_battle, &enemy_battle);
         } else {
-            enemys_turn(hero_battle, enemy_battle);
+            enemys_turn(&hero_battle, &enemy_battle);
         }
-
-        cout << "Situação do HP: " << hero_battle.hero.health << "/" << hero_battle.hero.max_health << endl;
-        cout << "HP do inimigo: " << enemy_battle.enemy.health << endl;
         
         result = !result;
         round++;
     }
+    cout << "Situação do HP: " << hero_battle.hero->health << "/" << hero_battle.hero->max_health << endl;
     if (hero.health > 0) {
         return 1;
     }
