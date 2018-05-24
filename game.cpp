@@ -9,8 +9,8 @@ using namespace std;
 
 const string INTRODUCTION = "BEM VINDO AO XIAQ\n";
 const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalha..\n";
-const string START_OPTIONS_MESSAGE = "Digite 1 caso queira batalhar, 2 se quiser ver as instruções ou 3 para visualizar o ranking.\n";
-const string IN_GAME_OPTIONS_MESSAGE = "Digite 2 caso deseje ir a loja ou 1 se quiser continuar batalhando.\n";
+const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\n[3] Visualizar Recordes\n";
+const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
 const string INSTRUCTIONS = "\n";
 const int SCORE_INCREMENT = 5;
