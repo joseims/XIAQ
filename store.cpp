@@ -19,7 +19,7 @@ const string NOT_ENOUGH_COINS_TEXT = "Sinto muito, você não me parece ter dinh
 const string INVALID_OPTION_TEXT = "Opção Inválida, escolha novamente\n";
 
 
-void run_store(main_character main_character);
+void run_store(main_character &character);
 bool is_bought(int index);
 
 void print_potion(int game_progress_multiplier) {
@@ -27,7 +27,7 @@ void print_potion(int game_progress_multiplier) {
 };
 
 
-item get_same_type_equipped_item(string item_type, main_character character) {
+item get_same_type_equipped_item(string item_type, main_character &character) {
     item new_item;
     if (item_type == ARMOR_TYPE) {
         new_item = character.armor;
@@ -39,7 +39,7 @@ item get_same_type_equipped_item(string item_type, main_character character) {
 };
 
 
-void print_item(item item_, main_character character, int index){
+void print_item(item item_, main_character &character, int index){
     if (is_bought(index)) {
         printf("[%d] (Item comprado)",index);
     } else {
@@ -52,12 +52,12 @@ void print_item(item item_, main_character character, int index){
 };
 
 
-void calculate_actual_potion_price(main_character main_character) {
+void calculate_actual_potion_price(main_character &character) {
     actual_potion_price = POTION_PRICE * character.game_progress_multiplier;
 };
 
 
-void print_menu(main_character character) {
+void print_menu(main_character &character) {
     printf("Selecione uma opção : ");
     for (int i = 0; i < 3;i++) {
         print_item(itens[i],character,i+1);
@@ -79,12 +79,12 @@ void exit_store() {
 };
 
 
-bool can_buy_it(main_character character, int price) {
+bool can_buy_it(main_character &character, int price) {
     return character.coins >= price;
 };
 
 
-void equip_item(main_character character, item item_, int index) {
+void equip_item(main_character &character, item item_, int index) {
     item old_item;
     if (item_.type == ARMOR_TYPE) {
         old_item = character.armor;
@@ -107,7 +107,7 @@ void equip_item(main_character character, item item_, int index) {
 };
 
 
-void buy_item(main_character character, item item_, int index) {
+void buy_item(main_character &character, item item_, int index) {
     if (can_buy_it(character,item_.price)) {
         character.coins -= item_.price;
         equip_item(character,item_,index);
@@ -119,7 +119,7 @@ void buy_item(main_character character, item item_, int index) {
 };
 
 
-void buy_potion(main_character character) {
+void buy_potion(main_character &character) {
     if (can_buy_it(character,POTION_PRICE)) {
         character.coins -= actual_potion_price;
         character.potion += 1;
@@ -138,7 +138,7 @@ bool is_bought(int index) {
 };
 
 
-void buying_menu(main_character character) { //TO SWITCH CASE
+void buying_menu(main_character &character) { //TO SWITCH CASE
      int option;
      while (1) {
         scanf("%d",&option);
@@ -171,7 +171,7 @@ void buying_menu(main_character character) { //TO SWITCH CASE
 };
 
 
-void run_store(main_character character) {
+void run_store(main_character &character) {
     printf("\n\n");
     print_menu(character);
     buying_menu(character);
@@ -179,7 +179,7 @@ void run_store(main_character character) {
 
 
 
-void see_store(main_character character) {
+void see_store(main_character &character) {
     calculate_actual_potion_price(character);
     printf("%s",STORE_WELCOME_TEXT.c_str());
     int game_progress_multiplier = character.game_progress_multiplier;

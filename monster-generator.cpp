@@ -53,19 +53,19 @@ monster generate_monster(bool isBoss, int game_progress_multiplier) {
 }
 
 // For temporary testing until we have defined the final values
-void generate_generic_monster(monster &m) {
-    m.name = "name";
-    m.strength = 10 + (rand() % 5);
-    m.defense = 10 + (rand() % 5);
-    m.health = 10 + (rand() % 5);
-    m.attack = "attack";
-    m.progress_multiplier = 10 + (rand() % 5);
-    m.coins = 10 + (rand() % 5);
+void generate_generic_monster(monster *m) {
+    m->name = "name";
+    m->strength = 10 + (rand() % 5);
+    m->defense = 10 + (rand() % 5);
+    m->health = 10 + (rand() % 5);
+    m->attack = "attack";
+    m->progress_multiplier = 10 + (rand() % 5);
+    m->coins = 10 + (rand() % 5);
 }
 
 void generate_all_monsters() {
     for (int i = 0; i < N_MONSTERS; i++) {
-        generate_generic_monster(monsters[i]);
+        generate_generic_monster(&monsters[i]);
     }
 }
 

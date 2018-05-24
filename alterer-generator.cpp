@@ -1,6 +1,7 @@
 #ifndef ALTERER_CPP
 #define ALTERER_CPP
 #include <bits/stdc++.h>
+
 using namespace std;
 
 // Alterers are adjectives
@@ -64,19 +65,19 @@ alterer get_random_monster_alterer() {
 }
 
 // For temporary testing until we have defined the final values
-void generate_generic_alterer(alterer &a) {
-    a.text = "text";
-    a.strength = 10 + (rand() % 5);
-    a.defense = 10 + (rand() % 5);
-    a.health = 10 + (rand() % 5);
+void generate_generic_alterer(alterer *a) {
+    a->text = "text";
+    a->strength = 10 + (rand() % 5);
+    a->defense = 10 + (rand() % 5);
+    a->health = 10 + (rand() % 5);
 }
 
 void generate_all_alterers() {
-    for (int i = 0; i < 9; i++) {
-        generate_generic_alterer(item_alterer[i]);
+    for (int i = 0; i < N_ITEMS_ALTERERS; i++) {
+        generate_generic_alterer(&item_alterer[i]);
     }
-    for (int i = 0; i < 13; i++) {
-        generate_generic_alterer(monster_alterer[i]);
+    for (int i = 0; i < N_MONSTERS_ALTERERS; i++) {
+        generate_generic_alterer(&monster_alterer[i]);
     }
 }
 

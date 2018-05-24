@@ -81,22 +81,22 @@ item generate_rand_item(int game_progress_multiplier) {
 }
 
 // For temporary testing until we have defined the final values
-void generate_generic_item(item &i) {
-    i.name = "name";
-    i.strength = 10 + (rand() % 5);
-    i.defense = 10 + (rand() % 5);
-    i.health = 10 + (rand() % 5);
-    i.attack = "attack";
-    i.type = "type";
-    i.price = 10 + (rand() % 5);
+void generate_generic_item(item *i) {
+    i->name = "name";
+    i->strength = 10 + (rand() % 5);
+    i->defense = 10 + (rand() % 5);
+    i->health = 10 + (rand() % 5);
+    i->attack = "attack";
+    i->type = "type";
+    i->price = 10 + (rand() % 5);
 }
 
 void generate_all_items() {
     for (int i = 0; i < N_WEAPONS; i++) {
-        generate_generic_item(weapons[i]);
+        generate_generic_item(&weapons[i]);
     }
     for (int i = 0; i < N_ARMORS; i++) {
-        generate_generic_item(armors[i]);
+        generate_generic_item(&armors[i]);
     }
 }
 

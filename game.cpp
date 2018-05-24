@@ -29,7 +29,7 @@ int main() {
   printf("%s", INTRODUCTION.c_str());
 
   monster enemy = get_random_monster();
-  generate_generic_monster(enemy);
+  generate_generic_monster(&enemy);
   start_game(character, enemy);
 
   //Refresh the rank here, after the game's ending.
