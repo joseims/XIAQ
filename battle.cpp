@@ -6,6 +6,19 @@
 
 using namespace std;
 
+string intToString(int number) {
+    stringstream ss;
+    ss << number;
+    string str = ss.str();
+    return str;
+}
+
+void non_negative_damage(int& damage) {
+    if (damage < 0) {
+        damage = 0;
+    }
+}
+
 struct hero_in_battle {
     main_character *hero;
     int consecutive_defending;
@@ -27,8 +40,10 @@ struct enemy_in_battle {
 int coin_toss() {
     // Method to decide who attacks first
     // Input value
+    string message;
 
     string chosen;
+    int win = 1;
     cout << "Escolha 'cara' or 'coroa': ";
     cin >> chosen;
 
@@ -37,14 +52,15 @@ int coin_toss() {
 
     int result = rand() % 2;
     if (result == 1 && chosen.compare("cara")) {
-        cout << "Você ganhou o 'cara ou coroa'. A primeira ação é sua!" << endl;
-        return 1; // Hero won
+        message = "Você ganhou o 'cara ou coroa'. A primeira ação é sua!\n";
     } else if (result == 0 && chosen.compare("coroa")) {
-        cout << "Você ganhou o 'cara ou coroa'. A primeira ação é sua!" << endl;
-        return 1; // Hero won
-    } 
-    cout << "Você perdeu o 'cara ou coroa'. A primeira ação é do inimigo!" << endl;
-    return 0; // Hero lost
+        message = "Você ganhou o 'cara ou coroa'. A primeira ação é sua!\n";
+    } else {
+        message = "Você perdeu o 'cara ou coroa'. A primeira ação é do inimigo!\n";
+        win = 0; // Hero lost
+    }
+    cout << message; // LOG THIS MESSAGE
+    return win;
 }
 
 int get_battle_action() {
@@ -60,17 +76,26 @@ int get_battle_action() {
 
 void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     int action;
-    cout << "Escolha sua ação:" << endl;
     bool done = true;
+    int base_damage = hero_battle->hero->strength;
+    string message = "";
+
+    cout << "Escolha sua ação:" << endl;
+
     while (done) {
         action = get_battle_action();
 
         switch (action) {
             case 1: {
                 // Enemy's HP is damaged by hero's strength
-                int damage_a = hero_battle->hero->strength;
-                cout << "Você causou " << damage_a << " de dano ao inimigo." << endl;
-                enemy_battle->enemy->health -= damage_a;
+                message = "Você atacou o inimigo!\n";
+                if (enemy_battle->consecutive_defending > 0) {
+                    message += "O inimigo estava na defensiva e bloqueou parte do dano.\n";
+                    base_damage -= enemy_battle->enemy->defense;
+                    non_negative_damage(base_damage);
+                }
+                message += "Você causou " + intToString(base_damage) + " de dano ao inimigo.\n";
+                enemy_battle->enemy->health -= base_damage;
                 hero_battle->consecutive_defending = 0;
             }
             done = false;
@@ -78,7 +103,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
 
             case 2: {
                 // Hero's consecutive rounds defending increases by 1
-                cout << "Você está em posição defensiva!";
+                message = "Você está em posição defensiva!\n";
                 hero_battle->consecutive_defending += 1;
             }
             done = false;
@@ -87,9 +112,15 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
             case 3: {
                 if (hero_battle->consecutive_defending > 2) {
                     // Enemy's HP is damaged by hero's strength * 3
-                    int damage_b = hero_battle->hero->strength * 3;
-                    cout << "Você causou " << damage_b << " de dano ao inimigo." << endl;
-                    enemy_battle->enemy->health -= damage_b;
+                    message = "Você usou o super ataque!\n";
+                    base_damage = base_damage * 3;
+                    if (enemy_battle->consecutive_defending > 0) {
+                        base_damage -= enemy_battle->enemy->defense;
+                        non_negative_damage(base_damage);
+                        message += "O inimigo estava na defensiva e bloqueou parte do dano.\n";
+                    }
+                    message += "Você causou " + intToString(base_damage) + " de dano ao inimigo.\n";
+                    enemy_battle->enemy->health -= base_damage;
                     hero_battle->consecutive_defending = 0;
                     done = false;
                 } else {
@@ -100,7 +131,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
             case 4: {
                 // Hero uses potion if he has any
                 if (hero_battle->hero->potion > 0) {
-                    cout << "Você usou uma poção e recuperou 15 de vida!" << endl;
+                    message = "Você usou uma poção e recuperou 15 de vida!\n";
                     hero_battle->hero->potion -= 1;
                     hero_battle->hero->health += 15;
                     done = false;
@@ -116,6 +147,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
             break;
         }
     }
+    cout << message; // LOG THIS MESSAGE
 }
 
 void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
@@ -123,28 +155,37 @@ void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     // The first occurs when the monster's defense is higher than
     // his strength, the second occurs otherwise
     int damage = enemy_battle->enemy->strength;
+    string message = "";
 
     if (enemy_battle->enemy->defense > enemy_battle->enemy->strength) {
         // First strategy: Monster prioritizes super attack
         if (enemy_battle->consecutive_defending > 2) {
-            cout << "O inimigo usou o super ataque! Você sofreu " << damage * 3 << " de dano!" << endl;
-            hero_battle->hero->health -= damage * 3;
+            damage = damage * 3;
+            message = "O inimigo usou o super ataque!\n";
             if (hero_battle->consecutive_defending > 0) {
-                hero_battle->hero->health += hero_battle->hero->defense;
+                damage -= hero_battle->hero->defense;
+                non_negative_damage(damage);
+                message += "Você estava na defensiva e bloqueou parte do dano.\n";
             }
+            message +=  "Você sofreu " + intToString(damage) + " de dano!\n";
+            hero_battle->hero->health -= damage;
             enemy_battle->consecutive_defending = 0;
         } else {
-            cout << "O inimigo ficou em posição defensiva." << endl;
+            message = "O inimigo ficou em posição defensiva.\n";
             enemy_battle->consecutive_defending++;
         }
     } else {
         // Second strategy: monster always attacks
-        cout << "O inimigo te atacou! Você sofreu " << damage << " de dano!" << endl;
-        hero_battle->hero->health -= damage;
+        message = "O inimigo te atacou!";
         if (hero_battle->consecutive_defending > 0) {
-            hero_battle->hero->health += hero_battle->hero->defense;
+            damage -= hero_battle->hero->defense;
+            non_negative_damage(damage);
+            message += "Você estava na defensiva e bloqueou parte do dano.\n";
         }
+        message += " Você sofreu " + intToString(damage) + " de dano!\n";
+        hero_battle->hero->health -= damage;
     }
+    cout << message; // LOG THIS MESSAGE
 }
 
 void initial_message(main_character& hero) {
@@ -186,7 +227,7 @@ int battle_workflow(main_character& hero, monster& enemy) {
         result = !result;
         round++;
     }
-    cout << "Situação do HP: " << hero_battle.hero->health << "/" << hero_battle.hero->max_health << endl;
+    cout << "Situação do HP: " << hero_battle.hero->health << "/" << hero_battle.hero->max_health << endl; // LOG THIS MESSAGE
     if (hero.health > 0) {
         return 1;
     }
