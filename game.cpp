@@ -14,6 +14,7 @@ const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a l
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
 const string INSTRUCTIONS = "\n";
 const int SCORE_INCREMENT = 5;
+int DIFFICULTY_LEVEL = 1;
 
 void play(main_character &character) {
   //Select the difficult level before start the game.
@@ -44,7 +45,7 @@ void play(main_character &character) {
   } while(still_in_battle);
 
   printf("%s", LOSS_MESSAGE.c_str());
-  insert(1, "", current_score);
+  insert(DIFFICULTY_LEVEL, "", current_score);
 }
 
 void game_setup(main_character &character) {
