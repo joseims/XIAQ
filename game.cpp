@@ -13,16 +13,18 @@ const string START_OPTIONS_MESSAGE = "Digite 1 caso queira batalhar, 2 se quiser
 const string IN_GAME_OPTIONS_MESSAGE = "Digite 2 caso deseje ir a loja ou 1 se quiser continuar batalhando.\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
 const string INSTRUCTIONS = "\n";
+const int SCORE_INCREMENT = 5;
 
 void play(main_character &character) {
   //Select the difficult level before start the game.
   int battles_counter = 0;
   int still_in_battle = 0;
-
+  int current_score = 0;
   do {
     if(still_in_battle)
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
       character.coins ++;
+      current_score += SCORE_INCREMENT;
 
     if(battles_counter == 5) {
       printf("%s", IN_GAME_OPTIONS_MESSAGE.c_str());
@@ -41,6 +43,7 @@ void play(main_character &character) {
   } while(still_in_battle);
 
   printf("%s", LOSS_MESSAGE.c_str());
+  insert(1, "", current_score);
 }
 
 void game_setup(main_character &character) {
