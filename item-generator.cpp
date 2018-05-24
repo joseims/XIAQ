@@ -80,6 +80,24 @@ item generate_rand_item(int game_progress_multiplier) {
     else return generate_armor(game_progress_multiplier);
 }
 
+void generate_initial_items() {
+    potato_sack.name = "potato_sack";
+    potato_sack.strength = 10 + (rand() % 5);
+    potato_sack.defense = 10 + (rand() % 5);
+    potato_sack.health = 10 + (rand() % 5);
+    potato_sack.attack = "attack";
+    potato_sack.type = "type";
+    potato_sack.price = 10 + (rand() % 5);
+
+    stick.name = "stick";
+    stick.strength = 10 + (rand() % 5);
+    stick.defense = 10 + (rand() % 5);
+    stick.health = 10 + (rand() % 5);
+    stick.attack = "attack";
+    stick.type = "type";
+    stick.price = 10 + (rand() % 5);
+}
+
 // For temporary testing until we have defined the final values
 void generate_generic_item(item *i) {
     i->name = "name";

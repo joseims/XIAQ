@@ -21,10 +21,11 @@ void play(main_character &character) {
   int still_in_battle = 0;
   int current_score = 0;
   do {
-    if(still_in_battle)
+    if(still_in_battle) {
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
       character.coins ++;
       current_score += SCORE_INCREMENT;
+    }
 
     if(battles_counter == 5) {
       printf("%s", IN_GAME_OPTIONS_MESSAGE.c_str());
@@ -49,6 +50,7 @@ void play(main_character &character) {
 void game_setup(main_character &character) {
   generate_all_alterers();
   generate_all_monsters();
+  set_initial_items();
   character.game_progress_multiplier = 1;
 }
 

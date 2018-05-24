@@ -18,4 +18,10 @@ struct main_character {
 
 main_character character;
 
+void set_initial_items() {
+	generate_initial_items();
+	character.weapon = stick;
+	character.armor = potato_sack;
+}
+
 #endif
