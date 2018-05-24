@@ -22,8 +22,8 @@ void set_initial_attributes() {
 }
 
 void set_initial_items() {
-	generate_initial_items();
-	character.weapon = stick;
-	character.armor = potato_sack;
+    generate_initial_items();
+    character.weapon = stick;
+    character.armor = potato_sack;
     set_initial_attributes();
 }
