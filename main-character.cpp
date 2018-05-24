@@ -18,10 +18,17 @@ struct main_character {
 
 main_character character;
 
+void set_initial_attributes() {
+    character.strength = stick.strength + potato_sack.strength;
+    character.defense = stick.defense + potato_sack.defense;
+    character.health = stick.health + potato_sack.health;
+}
+
 void set_initial_items() {
-	generate_initial_items();
-	character.weapon = stick;
-	character.armor = potato_sack;
+    generate_initial_items();
+    character.weapon = stick;
+    character.armor = potato_sack;
+    set_initial_attributes();
 }
 
 #endif
