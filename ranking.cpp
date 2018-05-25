@@ -31,6 +31,10 @@ void see_all_score(int difficulty)
 
 	vector<ranking> get_vector = get_ranking(difficulty);
 
+	if (get_vector.size() == 0) {
+		cout << "Nenhum score" << endl;
+		return;
+	}
 	for(int i = 0; i < get_vector.size(); i++)
 	{
 		cout << "score atual " << get_vector[i].name_user << " " << get_vector[i].score << endl;

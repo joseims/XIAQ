@@ -41,13 +41,13 @@ item get_same_type_equipped_item(string item_type, main_character &character) {
 
 void print_item(item item_, main_character &character, int index){
     if (is_bought(index)) {
-        printf("[%d] (Item comprado)",index);
+        printf("[%d] (Item comprado)\n",index);
     } else {
         item old_item = get_same_type_equipped_item(item_.type, character);
         int def_diff = item_.defense - old_item.defense;
         int str_diff = item_.strength - old_item.strength;
         int hp_diff = item_.health - old_item.health;
-        printf("[%d] %s (Força= %d, Defesa= %d,Vida= %d) - %d\n",index, item_.name.c_str(), str_diff, def_diff, hp_diff, item_.price);
+        printf("[%d] %s (Força+= %d, Defesa+= %d,Vida+= %d) - %d\n",index, item_.name.c_str(), str_diff, def_diff, hp_diff, item_.price);
     }
 };
 
@@ -58,7 +58,7 @@ void calculate_actual_potion_price(main_character &character) {
 
 
 void print_menu(main_character &character) {
-    printf("Selecione uma opção : ");
+    printf("Selecione uma opção : \n");
     for (int i = 0; i < 3;i++) {
         print_item(itens[i],character,i+1);
     }
@@ -142,7 +142,7 @@ void buying_menu(main_character &character) { //TO SWITCH CASE
      int option;
      while (1) {
         scanf("%d",&option);
-        if (is_bought(option)) {
+        if (!is_bought(option)) {
 
             switch(option) {
                 case 1:
@@ -161,7 +161,7 @@ void buying_menu(main_character &character) { //TO SWITCH CASE
                     exit_store();
                     return;
                 default:
-                    printf("%s",ALREADY_BOUGHT_TEXT.c_str());
+                    printf("%s",INVALID_OPTION_TEXT.c_str());
             }
             
         } else {
@@ -180,6 +180,7 @@ void run_store(main_character &character) {
 
 
 void see_store(main_character &character) {
+    printf("Você possui %d de moedas!\n",character.coins );
     calculate_actual_potion_price(character);
     printf("%s",STORE_WELCOME_TEXT.c_str());
     int game_progress_multiplier = character.game_progress_multiplier;

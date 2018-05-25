@@ -31,7 +31,7 @@ monster get_random_monster() {
 }
 
 int multiplyer_monster(int attribute, int game_progress_multiplier) {
-    return attribute * game_progress_multiplier;
+    return attribute   + (attribute * game_progress_multiplier)/10;
 }
 
 monster join_monster_alterer(monster m, alterer a, int game_progress_multiplier) {

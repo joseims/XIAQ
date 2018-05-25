@@ -188,18 +188,19 @@ void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     cout << message; // LOG THIS MESSAGE
 }
 
-void initial_message(main_character& hero) {
+void initial_message(main_character& hero, monster& enemy) {
     cout << "A BATALHA ESTÁ PRESTES A COMEÇAR!!" << endl;
     cout << "Lembre-se, seus status são: " << endl;
     cout << "Força: " << hero.strength << endl;
     cout << "Defesa: " << hero.defense << endl;
     cout << "Vida: " << hero.health << "/" << hero.max_health << endl;
-    cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl << endl;
+    cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl;
+    cout << "Você encontrou o " << enemy.name << " e ele possuiu " << enemy.health<< " de vida."<< endl << endl;
 }
 
 int battle_workflow(main_character& hero, monster& enemy) {
     // Displays initial message
-    initial_message(hero);
+    initial_message(hero,enemy);
 
     // Sets hero in battle
     hero_in_battle hero_battle;

@@ -12,7 +12,7 @@ const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalh
 const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\n[3] Visualizar Recordes\n";
 const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
-const string INSTRUCTIONS = "\n";
+const string INSTRUCTIONS = "O jogo se dá através de sucessivas lutas contra monstros!\nA cada 5 vitórias você poderá ir para loja ficar mais forte!\nDê o seu melhor para matar o maior numero de pontos possivel!\n";
 const int SCORE_INCREMENT = 5;
 int DIFFICULTY_LEVEL = 1;
 
@@ -25,7 +25,7 @@ void play(main_character &character) {
     if(still_in_battle) {
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
       character.coins ++;
-      current_score += SCORE_INCREMENT;
+      current_score += SCORE_INCREMENT + character.game_progress_multiplier/10;
     }
 
     if(battles_counter == 5) {
@@ -51,6 +51,7 @@ void play(main_character &character) {
 void game_setup(main_character &character) {
   generate_all_alterers();
   generate_all_monsters();
+  generate_all_items();
   set_initial_items();
   character.game_progress_multiplier = 1;
 }
@@ -60,7 +61,7 @@ void start_menu(main_character &character) {
   int option;
   while(1) {
     printf("%s", START_OPTIONS_MESSAGE.c_str());
-    scanf("%d", &option);
+    scanf(" %d", &option);
 
     switch(option) {
       case 1:
