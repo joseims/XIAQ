@@ -108,7 +108,7 @@ void equip_item(main_character &character, item item_, int index) {
 };
 
 string message_buy_item(item item_) {
-    return = "Item comprado: " + item_.name + " "
+    return "Item comprado: " + item_.name + " "
             + "(Força = " + to_string(item_.strength) 
             + ", Defesa = " + to_string(item_.defense)
             + ", Vida = " + to_string(item_.health)
