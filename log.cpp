@@ -9,7 +9,7 @@ string LOG = "";
 const string FILENAME = "logs.txt";
 
 void add_log(string current_log) {
-  LOG += current_log;
+  LOG += current_log + "\n";
 }
 
 void save_log() {
