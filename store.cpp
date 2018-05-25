@@ -2,6 +2,7 @@
 #define STORE_CPP
 #include "item-generator.cpp"
 #include "main-character.cpp"
+#include "log.cpp"
 
 using namespace std;
 
@@ -12,9 +13,9 @@ int actual_potion_price;
 const string ARMOR_TYPE = "armor";
 const string WEAPON_TYPE = "weapon";
 const string POTION_TEXT = "Poção (Recupera X de vida)";
-const string STORE_WELCOME_TEXT = "BEM VINDO MEU PARCEIRO\n";
+const string STORE_WELCOME_TEXT = "Bem vindo a Loja, em que podemos ajuda-lo?\n";
 const string ALREADY_BOUGHT_TEXT = "Você já comprou esse item, escolha novamente\n";
-const string EXIT_TEXT = "Xau xau meu parceiro\n";
+const string EXIT_TEXT = "Obrigado e volte sempre!\n\n";
 const string NOT_ENOUGH_COINS_TEXT = "Sinto muito, você não me parece ter dinheiro suficiente para comprar isso\n";
 const string INVALID_OPTION_TEXT = "Opção Inválida, escolha novamente\n";
 
@@ -53,7 +54,7 @@ void print_item(item item_, main_character &character, int index){
 
 
 void calculate_actual_potion_price(main_character &character) {
-    actual_potion_price = POTION_PRICE * character.game_progress_multiplier;
+    actual_potion_price = POTION_PRICE + (POTION_PRICE* character.game_progress_multiplier)/4;
 };
 
 
@@ -63,7 +64,7 @@ void print_menu(main_character &character) {
         print_item(itens[i],character,i+1);
     }
     print_potion(character.game_progress_multiplier);
-    printf("[5] Sair da loja");
+    printf("[5] Sair da loja\n");
 };
 
 
@@ -106,23 +107,31 @@ void equip_item(main_character &character, item item_, int index) {
     }
 };
 
+string message_buy_item(item item_) {
+    return "Item comprado: " + item_.name + " "
+            + "(Força = " + to_string(item_.strength) 
+            + ", Defesa = " + to_string(item_.defense)
+            + ", Vida = " + to_string(item_.health)
+            + ") - " + to_string(item_.price) + "\n";
+}
 
 void buy_item(main_character &character, item item_, int index) {
     if (can_buy_it(character,item_.price)) {
         character.coins -= item_.price;
         equip_item(character,item_,index);
         bought[index] = true;
+        add_log(message_buy_item(item_));
     } else {
         printf("%s",NOT_ENOUGH_COINS_TEXT.c_str());
     }
     run_store(character);
 };
 
-
 void buy_potion(main_character &character) {
     if (can_buy_it(character,POTION_PRICE)) {
         character.coins -= actual_potion_price;
         character.potion += 1;
+        add_log("Poção de vida comprada.\n");
     } else {
         printf("%s",NOT_ENOUGH_COINS_TEXT.c_str());
     }
@@ -180,16 +189,18 @@ void run_store(main_character &character) {
 
 
 void see_store(main_character &character) {
-    printf("Você possui %d de moedas!\n",character.coins );
+
     calculate_actual_potion_price(character);
     printf("%s",STORE_WELCOME_TEXT.c_str());
+    add_log("Entrou na loja.\n");
+    printf("Você possui %d de moedas!\n",character.coins );
     int game_progress_multiplier = character.game_progress_multiplier;
     reset_is_bought();
     itens[0] = generate_weapon(game_progress_multiplier);
     itens[1] = generate_armor(game_progress_multiplier);
     itens[2] = generate_rand_item(game_progress_multiplier);
     run_store(character);
-    
+    add_log("Saiu da loja\n\n");
 };
 
 #endif

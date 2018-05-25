@@ -2,6 +2,8 @@
 
 using namespace std;
 
+string difficulties[3] = {"Facil", "Médio","Dificil"};
+
 struct ranking
 {
 	string name_user;
@@ -80,20 +82,32 @@ void insert(int difficulty, string name, int new_score)
 
 void see_three_highest_score(int difficulty)
 {
-	
 	vector<ranking> get_vector = get_ranking(difficulty);
+
+	if (get_vector.size() == 0) {
+		cout << "Nenhum score" << endl;
+		return;
+	}
 	
 	if(get_vector.size() < 3) {
 		for(int i = get_vector.size() - 1; i >= 0; i--)
 		{
-			cout << get_vector[i].name_user << " " << get_vector[i].score << endl;
+			cout << "[" << i << "] " << get_vector[i].name_user << " " << get_vector[i].score << endl;
 		}
 	} else
 	{
 		for(int i = get_vector.size() - 1; i >= get_vector.size() - 3; i--)
 		{
-			cout << get_vector[i].name_user << " " << get_vector[i].score << endl;	
+			cout << "[" << i << "] " <<  get_vector[i].name_user << " " << get_vector[i].score << endl;	
 		}
 	}
 
+}
+
+void see_all_three_highest_score() {
+	for (int i = 0; i <= 2;i++) {
+		cout << "Recordes para " << difficulties[i] << endl;
+		see_three_highest_score(i+1);
+
+	}
 }

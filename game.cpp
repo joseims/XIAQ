@@ -4,6 +4,7 @@
 #include "battle.cpp"
 #include "store.cpp"
 #include "ranking.cpp"
+#include "log.cpp"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\
 const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
 const string INSTRUCTIONS = "O jogo se dá através de sucessivas lutas contra monstros!\nA cada 5 vitórias você poderá ir para loja ficar mais forte!\nDê o seu melhor para matar o maior numero de pontos possivel!\n";
+const string DIFFICULTY_OPTIONS = "Escolha um nível de dificuldade:\n[1] Fácil\n[2] Médio\n[3] Difícil\n";
 const int SCORE_INCREMENT = 5;
 int DIFFICULTY_LEVEL = 1;
 
@@ -24,6 +26,7 @@ void play(main_character &character) {
   do {
     if(still_in_battle) {
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
+      add_log(CONGRATULATIONS_MESSAGE);
       character.coins ++;
       current_score += SCORE_INCREMENT + character.game_progress_multiplier/10;
     }
@@ -45,7 +48,13 @@ void play(main_character &character) {
   } while(still_in_battle);
 
   printf("%s", LOSS_MESSAGE.c_str());
-  insert(DIFFICULTY_LEVEL, "", current_score);
+  add_log(LOSS_MESSAGE);
+  save_log();
+  string player_name;
+  printf("Jogador digite seu primeiro nome:\n");
+  cin >> player_name;
+  printf("\n");
+  insert(DIFFICULTY_LEVEL, player_name, current_score);
 }
 
 void game_setup(main_character &character) {
@@ -53,11 +62,37 @@ void game_setup(main_character &character) {
   generate_all_monsters();
   generate_all_items();
   set_initial_items();
-  character.game_progress_multiplier = 1;
+  character.game_progress_multiplier = DIFFICULTY_LEVEL;
+}
+
+void select_difficulty_level() {
+  printf("%s", DIFFICULTY_OPTIONS.c_str());
+  int option;
+  bool valid_option = true;
+  do {
+    scanf("%d", &option);
+    switch(option) {
+      case 1:
+        DIFFICULTY_LEVEL = 1;
+        break;
+      case 2:
+        DIFFICULTY_LEVEL = 2;
+        break;
+      case 3:
+        DIFFICULTY_LEVEL = 3;
+        break;
+      default:
+        printf("Opção inválida");
+        valid_option = false;
+        break;
+    }
+  } while(!valid_option);
+  
 }
 
 void start_menu(main_character &character) {
   printf("%s", INTRODUCTION.c_str());
+  add_log(INTRODUCTION);
   int option;
   while(1) {
     printf("%s", START_OPTIONS_MESSAGE.c_str());
@@ -65,14 +100,16 @@ void start_menu(main_character &character) {
 
     switch(option) {
       case 1:
+        select_difficulty_level();
         game_setup(character);
+        add_log("Uma nova partida foi iniciada!");
         play(character);
         break;
       case 2:
         printf("%s", INSTRUCTIONS.c_str());
         break;
       case 3:
-        see_all_score(1);
+        see_all_three_highest_score();
         break;
       default:
         printf("Opção inválida");

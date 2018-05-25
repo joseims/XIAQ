@@ -21,6 +21,7 @@ item sword_shield;// atk+, def+
 
 const int N_WEAPONS = 4;
 item weapons[N_WEAPONS] = {sword,mace,gauntlet,sword_shield};
+string weapon_names[N_WEAPONS] = {"Espada", "Maça","Manopla", "Espada e escudo"};
 
 // Types of armors
 item light_armor;// +health
@@ -31,6 +32,7 @@ item kimono;// +atk, +health
 
 const int N_ARMORS = 5;
 item armors[N_ARMORS] = {light_armor,medium_armor,heavy_armor,spikey_armor,kimono};
+string armor_names[N_ARMORS] = {"Armadura Leve","Armadura média","Armadura pesada","Armadura espinhosa","Kimono"};
 
 // Initial
 item stick;// Initial weapon
@@ -52,13 +54,13 @@ int multiplyer_item(int attribute, int game_progress_multiplier) {
 
 item join_item_alterer(item i, alterer a, int game_progress_multiplier) {
     item new_item;
-    new_item.name = i.name + " " + a.text;
+    new_item.name = i.name + a.text;
     new_item.strength = multiplyer_item((i.strength + a.strength), game_progress_multiplier);
     new_item.defense = multiplyer_item((i.defense + a.defense), game_progress_multiplier);
     new_item.health = multiplyer_item((i.health + a.health), game_progress_multiplier);
     new_item.attack = i.attack + " " + a.text;
     new_item.type = i.type;
-    new_item.price = multiplyer_item(i.price, game_progress_multiplier)/10;
+    new_item.price = multiplyer_item(i.price, game_progress_multiplier)/4;
     return new_item;
 }
 
@@ -101,12 +103,10 @@ void generate_initial_items() {
 // For temporary testing until we have defined the final values
 item generate_generic_item() {
     item i;
-    i.name = "name";
     i.strength = 10 + (rand() % 5);
     i.defense = 10 + (rand() % 5);
     i.health = 10 + (rand() % 5);
     i.attack = "attack";
-    i.type = "type";
     i.price = 3;
     return i;
 }
@@ -115,13 +115,13 @@ void generate_all_items() {
     for (int i = 0; i < N_WEAPONS; i++) {
         item it = generate_generic_item();
         it.type = "weapon";
-        it.name = "weapon " + to_string(i);
+        it.name = weapon_names[i];
         weapons[i] = it;
     }
     for (int i = 0; i < N_ARMORS; i++) {
         item it = generate_generic_item();
         it.type = "armor";
-        it.name = "armor " + to_string(i);
+        it.name = armor_names[i];
         armors[i] = it;
     }
 }

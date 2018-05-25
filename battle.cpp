@@ -2,6 +2,7 @@
 #define BATTLE_CPP
 #include "main-character.cpp"
 #include "monster-generator.cpp"
+#include "log.cpp"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -60,6 +61,7 @@ int coin_toss() {
         win = 0; // Hero lost
     }
     cout << message; // LOG THIS MESSAGE
+    add_log(message);
     return win;
 }
 
@@ -148,6 +150,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
         }
     }
     cout << message; // LOG THIS MESSAGE
+    add_log(message);
 }
 
 void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
@@ -186,6 +189,7 @@ void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
         hero_battle->hero->health -= damage;
     }
     cout << message; // LOG THIS MESSAGE
+    add_log(message);
 }
 
 void initial_message(main_character& hero, monster& enemy) {
@@ -195,7 +199,7 @@ void initial_message(main_character& hero, monster& enemy) {
     cout << "Defesa: " << hero.defense << endl;
     cout << "Vida: " << hero.health << "/" << hero.max_health << endl;
     cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl;
-    cout << "Você encontrou o " << enemy.name << " e ele possuiu " << enemy.health<< " de vida."<< endl << endl;
+    cout << "Você encontrou um " << enemy.name << " e ele possuiu " << enemy.health<< " de vida."<< endl << endl;
 }
 
 int battle_workflow(main_character& hero, monster& enemy) {
@@ -228,7 +232,9 @@ int battle_workflow(main_character& hero, monster& enemy) {
         result = !result;
         round++;
     }
-    cout << "Situação do HP: " << hero_battle.hero->health << "/" << hero_battle.hero->max_health << endl; // LOG THIS MESSAGE
+    string message = "Situação do HP: " + to_string(hero_battle.hero->health) + "/" + to_string(hero_battle.hero->max_health) + "\n";
+    cout << message; // LOG THIS MESSAGE
+    add_log(message);
     if (hero.health > 0) {
         return 1;
     }
