@@ -25,7 +25,7 @@ void load_log() {
   ifstream file(FILENAME);
   if(file.is_open()) {
     while(getline(file, line)) {
-      LOG += line + "\n";
+      add_log(line);
     }
     file.close();
   }
