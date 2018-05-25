@@ -4,6 +4,7 @@
 #include "battle.cpp"
 #include "store.cpp"
 #include "ranking.cpp"
+#include "log.cpp"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ void play(main_character &character) {
   do {
     if(still_in_battle) {
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
+      add_log(CONGRATULATIONS_MESSAGE);
       character.coins ++;
       current_score += SCORE_INCREMENT;
     }
@@ -45,6 +47,8 @@ void play(main_character &character) {
   } while(still_in_battle);
 
   printf("%s", LOSS_MESSAGE.c_str());
+  add_log(LOSS_MESSAGE);
+  save_log();
   insert(DIFFICULTY_LEVEL, "", current_score);
 }
 
@@ -57,6 +61,7 @@ void game_setup(main_character &character) {
 
 void start_menu(main_character &character) {
   printf("%s", INTRODUCTION.c_str());
+  add_log(INTRODUCTION);
   int option;
   while(1) {
     printf("%s", START_OPTIONS_MESSAGE.c_str());
@@ -65,6 +70,7 @@ void start_menu(main_character &character) {
     switch(option) {
       case 1:
         game_setup(character);
+        add_log("Uma nova partida foi iniciada!");
         play(character);
         break;
       case 2:
