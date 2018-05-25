@@ -1,4 +1,4 @@
-#ifndef OG_CPP
+#ifndef LOG_CPP
 #define LOG_CPP
 #include <bits/stdc++.h>
 
