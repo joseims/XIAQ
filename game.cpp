@@ -13,7 +13,7 @@ const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalh
 const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\n[3] Visualizar Recordes\n[4] Sair\n\n";
 const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
-const string INSTRUCTIONS = "O jogo se dá através de sucessivas lutas contra monstros!\nA cada 5 vitórias você poderá ir para loja ficar mais forte!\nDê o seu melhor para matar o maior numero de pontos possivel!\n\n";
+const string INSTRUCTIONS = "O jogo se dá através de sucessivas lutas contra monstros!\nA cada 5 vitórias você poderá ir para loja ficar mais forte!\nDê o seu melhor para matar o maior numero de monstros possível!\n\n";
 const string DIFFICULTY_OPTIONS = "Escolha um nível de dificuldade:\n[1] Fácil\n[2] Médio\n[3] Difícil\n";
 const int SCORE_INCREMENT = 5;
 int DIFFICULTY_LEVEL = 1;
@@ -100,7 +100,7 @@ void start_menu(main_character &character) {
       case 1:
         select_difficulty_level();
         game_setup(character);
-        printf("Jogador digite seu primeiro nome:\n");
+        printf("Jogador, digite seu primeiro nome:\n");
         cin >> character.name;
         message = "Uma nova partida foi iniciada!\n\nNovo jogador: " + character.name + "\n\n";
         add_log(message);
