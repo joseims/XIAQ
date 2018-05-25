@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string difficulties[3] = {"Facil", "Médio","Dificil"};
+string difficulties[3] = {"Fácil", "Médio","Difícil"};
 
 struct ranking
 {
