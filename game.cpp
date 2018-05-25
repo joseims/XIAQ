@@ -13,6 +13,7 @@ const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\
 const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
 const string INSTRUCTIONS = "\n";
+const string DIFFICULTY_OPTIONS = "Escolha um nível de dificuldade:\n[1] Fácil\n[2] Médio\n[3] Difícil\n";
 const int SCORE_INCREMENT = 5;
 int DIFFICULTY_LEVEL = 1;
 
@@ -52,7 +53,32 @@ void game_setup(main_character &character) {
   generate_all_alterers();
   generate_all_monsters();
   set_initial_items();
-  character.game_progress_multiplier = 1;
+  character.game_progress_multiplier = DIFFICULTY_LEVEL;
+}
+
+void select_difficulty_level() {
+  printf("%s", DIFFICULTY_OPTIONS.c_str());
+  int option;
+  bool valid_option = true;
+  do {
+    scanf("%d", &option);
+    switch(option) {
+      case 1:
+        DIFFICULTY_LEVEL = 1;
+        break;
+      case 2:
+        DIFFICULTY_LEVEL = 2;
+        break;
+      case 3:
+        DIFFICULTY_LEVEL = 3;
+        break;
+      default:
+        printf("Opção inválida");
+        valid_option = false;
+        break;
+    }
+  } while(!valid_option);
+  
 }
 
 void start_menu(main_character &character) {
@@ -64,6 +90,7 @@ void start_menu(main_character &character) {
 
     switch(option) {
       case 1:
+        select_difficulty_level();
         game_setup(character);
         play(character);
         break;
