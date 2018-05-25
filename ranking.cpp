@@ -2,15 +2,15 @@
 
 using namespace std;
 
-struct rank
+struct ranking
 {
 	string name_user;
 	int score;
 };
 
-vector<rank> storage_easy, storage_medium, storage_hard;
+vector<ranking> storage_easy, storage_medium, storage_hard;
 
-vector<rank> get_rank(int difficulty)
+vector<ranking> get_ranking(int difficulty)
 {
 	if(difficulty == 1)
 	{
@@ -29,7 +29,7 @@ vector<rank> get_rank(int difficulty)
 void see_all_score(int difficulty)
 {
 
-	vector<rank> get_vector = get_rank(difficulty);
+	vector<ranking> get_vector = get_ranking(difficulty);
 
 	for(int i = 0; i < get_vector.size(); i++)
 	{
@@ -38,7 +38,7 @@ void see_all_score(int difficulty)
 
 }
 
-bool compare(const rank& r1, const rank& r2)
+bool compare(const ranking& r1, const ranking& r2)
 {
 	return r1.score < r2.score;
 }
@@ -53,7 +53,7 @@ void sort_vector()
 void insert(int difficulty, string name, int new_score)
 {
 
-	rank r_insert;
+	ranking r_insert;
 	r_insert.name_user = name;
 	r_insert.score = new_score;
 
@@ -77,7 +77,7 @@ void insert(int difficulty, string name, int new_score)
 void see_three_highest_score(int difficulty)
 {
 	
-	vector<rank> get_vector = get_rank(difficulty);
+	vector<ranking> get_vector = get_ranking(difficulty);
 	
 	if(get_vector.size() < 3) {
 		for(int i = get_vector.size() - 1; i >= 0; i--)

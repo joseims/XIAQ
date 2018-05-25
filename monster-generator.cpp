@@ -1,3 +1,6 @@
+#ifndef MONSTER_CPP
+#define MONSTER_CPP
+#include "alterer-generator.cpp"
 using namespace std;
 
 struct monster {
@@ -65,3 +68,5 @@ void generate_all_monsters() {
         generate_generic_monster(&monsters[i]);
     }
 }
+
+#endif

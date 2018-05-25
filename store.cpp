@@ -1,6 +1,9 @@
+#ifndef STORE_CPP
+#define STORE_CPP
+#include "item-generator.cpp"
+#include "main-character.cpp"
+
 using namespace std;
-
-
 
 item itens[3];
 bool bought[3];
@@ -17,7 +20,7 @@ const string INVALID_OPTION_TEXT = "Opção Inválida, escolha novamente\n";
 
 
 void run_store(main_character &character);
-
+bool is_bought(int index);
 
 void print_potion(int game_progress_multiplier) {
     printf("[4] %s - %d\n",POTION_TEXT.c_str(),actual_potion_price);
@@ -187,3 +190,5 @@ void see_store(main_character &character) {
     run_store(character);
     
 };
+
+#endif

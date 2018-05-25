@@ -1,3 +1,6 @@
+#ifndef CHARACTER_CPP
+#define CHARACTER_CPP
+#include "item-generator.cpp"
 using namespace std;
 
 // Character representation
@@ -27,3 +30,5 @@ void set_initial_items() {
     character.armor = potato_sack;
     set_initial_attributes();
 }
+
+#endif
