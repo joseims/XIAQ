@@ -28,22 +28,6 @@ vector<ranking> get_ranking(int difficulty)
 	}
 }
 
-void see_all_score(int difficulty)
-{
-
-	vector<ranking> get_vector = get_ranking(difficulty);
-
-	if (get_vector.size() == 0) {
-		cout << "Nenhum score" << endl;
-		return;
-	}
-	for(int i = 0; i < get_vector.size(); i++)
-	{
-		cout << "score atual " << get_vector[i].name_user << " " << get_vector[i].score << endl;
-	}
-
-}
-
 bool compare(const ranking& r1, const ranking& r2)
 {
 	return r1.score < r2.score;
@@ -89,13 +73,19 @@ void see_three_highest_score(int difficulty)
 		return;
 	}
 	
+	if (get_vector.size() == 0) {
+		cout << "Nenhum score" << endl;
+		return;
+	}
 	if(get_vector.size() < 3) {
+		cout << "Score atual: " << endl; 
 		for(int i = get_vector.size() - 1; i >= 0; i--)
 		{
 			cout << "[" << i << "] " << get_vector[i].name_user << " " << get_vector[i].score << endl;
 		}
 	} else
 	{
+		cout << "Score atual: " << endl;
 		for(int i = get_vector.size() - 1; i >= get_vector.size() - 3; i--)
 		{
 			cout << "[" << i << "] " <<  get_vector[i].name_user << " " << get_vector[i].score << endl;	

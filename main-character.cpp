@@ -5,6 +5,7 @@ using namespace std;
 
 // Character representation
 struct main_character {
+    string name;
     int strength;
     int defense;
     int health;
