@@ -98,7 +98,7 @@ void start_menu(main_character &character) {
         printf("%s", INSTRUCTIONS.c_str());
         break;
       case 3:
-        see_all_score(1);
+        see_three_highest_score(DIFFICULTY_LEVEL);
         break;
       default:
         printf("Opção inválida");
