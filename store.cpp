@@ -101,10 +101,12 @@ void equip_item(main_character &character, item item_, int index) {
     character.strength += str_diff;
     character.defense += def_diff;
     character.max_health += hp_diff;
+    character.health += hp_diff;
 
     if (character.max_health < character.health) {
         character.health = character.max_health;
-    }
+    } 
+
 };
 
 string message_buy_item(item item_) {
@@ -131,6 +133,7 @@ void buy_potion(main_character &character) {
     if (can_buy_it(character,actual_potion_price)) {
         character.coins -= actual_potion_price;
         character.potion += 1;
+        printf("Poção de vida comprada.\n");
         add_log("Poção de vida comprada.\n");
     } else {
         printf("%s",NOT_ENOUGH_COINS_TEXT.c_str());

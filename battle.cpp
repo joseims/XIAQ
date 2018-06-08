@@ -137,6 +137,9 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
                     message = "Você usou uma poção e recuperou 15 de vida!\n";
                     hero_battle->hero->potion -= 1;
                     hero_battle->hero->health += 15;
+                    if (hero_battle->hero->health > hero_battle->hero->max_health) {
+                        hero_battle->hero->health = hero_battle->hero->max_health;
+                    }
                     done = false;
                 } else {
                     cout << "Você não tem mais poções. Tente algo diferente." << endl;
