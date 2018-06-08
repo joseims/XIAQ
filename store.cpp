@@ -12,7 +12,7 @@ const int POTION_PRICE = 5;
 int actual_potion_price;
 const string ARMOR_TYPE = "armor";
 const string WEAPON_TYPE = "weapon";
-const string POTION_TEXT = "Poção (Recupera X de vida)";
+const string POTION_TEXT = "Poção (Recupera 15 de vida)";
 const string STORE_WELCOME_TEXT = "Bem vindo a Loja, em que podemos ajudá-lo?\n";
 const string ALREADY_BOUGHT_TEXT = "Você já comprou esse item, escolha novamente\n";
 const string EXIT_TEXT = "Obrigado e volte sempre!\n\n";

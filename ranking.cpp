@@ -81,23 +81,25 @@ void see_three_highest_score(int difficulty)
 		cout << "Score atual: " << endl; 
 		for(int i = get_vector.size() - 1; i >= 0; i--)
 		{
-			cout << "[" << i << "] " << get_vector[i].name_user << " " << get_vector[i].score << endl;
+			cout << "[" << i+1 << "] " << get_vector[i].name_user << " " << get_vector[i].score << endl << endl;
 		}
 	} else
 	{
 		cout << "Score atual: " << endl;
 		for(int i = get_vector.size() - 1; i >= get_vector.size() - 3; i--)
 		{
-			cout << "[" << i << "] " <<  get_vector[i].name_user << " " << get_vector[i].score << endl;	
+			cout << "[" << i+1 << "] " <<  get_vector[i].name_user << " " << get_vector[i].score << endl << endl;	
 		}
 	}
 
 }
 
 void see_all_three_highest_score() {
+	printf("\n------------------------------------------\n");
 	for (int i = 0; i <= 2;i++) {
 		cout << "Recordes para " << difficulties[i] << endl;
 		see_three_highest_score(i+1);
+		printf("------------------------------------------\n");
 
 	}
 }
