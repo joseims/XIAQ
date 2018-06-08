@@ -54,7 +54,7 @@ void print_item(item item_, main_character &character, int index){
 
 
 void calculate_actual_potion_price(main_character &character) {
-    actual_potion_price = POTION_PRICE + (POTION_PRICE* character.game_progress_multiplier)/10;
+    actual_potion_price = POTION_PRICE + (POTION_PRICE* character.game_progress_multiplier)/13;
 };
 
 

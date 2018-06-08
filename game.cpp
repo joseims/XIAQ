@@ -9,7 +9,7 @@
 using namespace std;
 
 const string INTRODUCTION = "Bem Vindo ao XIAQ\n";
-const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalha..\n";
+const string CONGRATULATIONS_MESSAGE = "Parabéns!! Você ganhou mais uma batalha!\n\n";
 const string START_OPTIONS_MESSAGE = "[1] Iniciar batalha\n[2] Ver Instruções\n[3] Visualizar Recordes\n[4] Sair\n\n";
 const string IN_GAME_OPTIONS_MESSAGE = "[1] Continua Batalhando\n[2] Ir para a loja\n";
 const string LOSS_MESSAGE = "Infelizmente chegamos ao fim dessa partida após essa derrota.\n";
@@ -27,7 +27,7 @@ void play(main_character &character) {
     if(still_in_battle) {
       printf("%s", CONGRATULATIONS_MESSAGE.c_str());
       add_log(CONGRATULATIONS_MESSAGE);
-      character.coins ++;
+      character.coins += 2;
       current_score += SCORE_INCREMENT + character.game_progress_multiplier/10;
     }
 
