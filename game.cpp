@@ -50,6 +50,7 @@ void play(main_character &character) {
   printf("%s", LOSS_MESSAGE.c_str());
   add_log(LOSS_MESSAGE);
   printf("\n");
+  save_log();
   insert(DIFFICULTY_LEVEL, character.name, current_score);
   
 }
