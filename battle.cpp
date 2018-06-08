@@ -97,7 +97,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
                     base_damage -= enemy_battle->enemy->defense;
                     non_negative_damage(base_damage);
                 }
-                message += "Você causou dano e o inimigo perdeu " + intToString(base_damage/enemy_max_health) + "% de sua vida.\n";
+                message += "Você causou dano e o inimigo perdeu " + intToString(100*base_damage/enemy_max_health) + "% de sua vida.\n";
                 enemy_battle->enemy->health -= base_damage;
                 hero_battle->consecutive_defending = 0;
             }
@@ -122,7 +122,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
                         non_negative_damage(base_damage);
                         message += "O inimigo estava na defensiva e bloqueou parte do dano.\n";
                     }
-                    message += "Você causou dano e o inimigo perdeu " + intToString(base_damage/enemy_max_health) + "% de sua vida.\n";
+                    message += "Você causou dano e o inimigo perdeu " + intToString(100*base_damage/enemy_max_health) + "% de sua vida.\n";
                     enemy_battle->enemy->health -= base_damage;
                     hero_battle->consecutive_defending = 0;
                     done = false;
