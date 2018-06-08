@@ -59,6 +59,7 @@ void calculate_actual_potion_price(main_character &character) {
 
 
 void print_menu(main_character &character) {
+    printf("Você possui %d de moedas!\n",character.coins );
     printf("Selecione uma opção : \n");
     for (int i = 0; i < 3;i++) {
         print_item(itens[i],character,i+1);
@@ -196,7 +197,6 @@ void see_store(main_character &character) {
     calculate_actual_potion_price(character);
     printf("%s",STORE_WELCOME_TEXT.c_str());
     add_log("Entrou na loja.\n");
-    printf("Você possui %d de moedas!\n",character.coins );
     int game_progress_multiplier = character.game_progress_multiplier;
     reset_is_bought();
     itens[0] = generate_weapon(game_progress_multiplier);
