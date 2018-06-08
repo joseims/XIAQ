@@ -54,7 +54,7 @@ void print_item(item item_, main_character &character, int index){
 
 
 void calculate_actual_potion_price(main_character &character) {
-    actual_potion_price = POTION_PRICE + (POTION_PRICE* character.game_progress_multiplier)/4;
+    actual_potion_price = POTION_PRICE + (POTION_PRICE* character.game_progress_multiplier)/10;
 };
 
 
@@ -128,7 +128,7 @@ void buy_item(main_character &character, item item_, int index) {
 };
 
 void buy_potion(main_character &character) {
-    if (can_buy_it(character,POTION_PRICE)) {
+    if (can_buy_it(character,actual_potion_price)) {
         character.coins -= actual_potion_price;
         character.potion += 1;
         add_log("Poção de vida comprada.\n");

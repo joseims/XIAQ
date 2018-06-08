@@ -49,6 +49,7 @@ void play(main_character &character) {
 
   printf("%s", LOSS_MESSAGE.c_str());
   add_log(LOSS_MESSAGE);
+  add_log("\n\n\n\n\n\n\n");
   printf("\n");
   save_log();
   insert(DIFFICULTY_LEVEL, character.name, current_score);
@@ -117,12 +118,13 @@ void start_menu(main_character &character) {
       case 4:
         return;
       default:
-        printf("Opção inválida");
+        printf("Opção inválida\n");
         break;
     }
   }
 }
 
 int main() {
+  load_log();
   start_menu(character);
 }

@@ -52,9 +52,9 @@ int coin_toss() {
     // if 1, heads wins
 
     int result = rand() % 2;
-    if (result == 1 && chosen.compare("cara")) {
+    if (result == 1 && !chosen.compare("cara")) {
         message = "Você ganhou o 'cara ou coroa'. A primeira ação é sua!\n";
-    } else if (result == 0 && chosen.compare("coroa")) {
+    } else if (result == 0 && !chosen.compare("coroa")) {
         message = "Você ganhou o 'cara ou coroa'. A primeira ação é sua!\n";
     } else {
         message = "Você perdeu o 'cara ou coroa'. A primeira ação é do inimigo!\n";
@@ -201,6 +201,8 @@ void initial_message(main_character& hero, monster& enemy) {
     cout << "Vida: " << hero.health << "/" << hero.max_health << endl;
     cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl;
     cout << "Você encontrou um " << enemy.name << endl << endl;
+    add_log("Você encontrou um " + enemy.name + "\n");
+    add_log(" Batalha começou\n");
 }
 
 int battle_workflow(main_character& hero, monster& enemy) {
