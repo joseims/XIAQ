@@ -81,7 +81,8 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     bool done = true;
     int base_damage = hero_battle->hero->strength;
     string message = "";
-
+    int enemy_max_health = enemy_battle->enemy->health;
+    
     cout << "Escolha sua ação:" << endl;
 
     while (done) {
@@ -96,7 +97,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
                     base_damage -= enemy_battle->enemy->defense;
                     non_negative_damage(base_damage);
                 }
-                message += "Você causou " + intToString(base_damage) + " de dano ao inimigo.\n";
+                message += "Você causou dano e o inimigo perdeu " + intToString(100*base_damage/enemy_max_health) + "% de sua vida.\n";
                 enemy_battle->enemy->health -= base_damage;
                 hero_battle->consecutive_defending = 0;
             }
@@ -121,7 +122,7 @@ void heros_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
                         non_negative_damage(base_damage);
                         message += "O inimigo estava na defensiva e bloqueou parte do dano.\n";
                     }
-                    message += "Você causou " + intToString(base_damage) + " de dano ao inimigo.\n";
+                    message += "Você causou dano e o inimigo perdeu " + intToString(100*base_damage/enemy_max_health) + "% de sua vida.\n";
                     enemy_battle->enemy->health -= base_damage;
                     hero_battle->consecutive_defending = 0;
                     done = false;
@@ -192,18 +193,19 @@ void enemys_turn(hero_in_battle *hero_battle, enemy_in_battle *enemy_battle) {
     add_log(message);
 }
 
-void initial_message(main_character& hero) {
+void initial_message(main_character& hero, monster& enemy) {
     cout << "A BATALHA ESTÁ PRESTES A COMEÇAR!!" << endl;
     cout << "Lembre-se, seus status são: " << endl;
     cout << "Força: " << hero.strength << endl;
     cout << "Defesa: " << hero.defense << endl;
     cout << "Vida: " << hero.health << "/" << hero.max_health << endl;
-    cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl << endl;
+    cout << "Você tem " << hero.potion << " Poções. Use-as sabiamente!!" << endl;
+    cout << "Você encontrou um " << enemy.name << endl << endl;
 }
 
 int battle_workflow(main_character& hero, monster& enemy) {
     // Displays initial message
-    initial_message(hero);
+    initial_message(hero,enemy);
 
     // Sets hero in battle
     hero_in_battle hero_battle;

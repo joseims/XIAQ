@@ -32,6 +32,7 @@ alterer soft;// -atk
 
 const int N_ITEMS_ALTERERS = 9;
 alterer item_alterer[N_ITEMS_ALTERERS] = {enraged, shiny, tought, legendary, irreparable, weak, dirty, soft, default_};
+string item_alterer_names[N_ITEMS_ALTERERS] = {" Furioso", " Brilhante"," Resistente"," Lendário"," Irreparavel"," Fraco"," Sujo"," Macio",""};
 
 // Types of alterers for monsters
 // Positive alterers
@@ -53,6 +54,8 @@ alterer legless;
 const int N_MONSTERS_ALTERERS = 13;
 alterer monster_alterer[N_MONSTERS_ALTERERS] = {pacifist, dumb, blind, imaginary, legless,
     invisible, gigantic, three_headed, terrifying, hairy, stony, murderer, default_};
+string monster_alterer_names[N_MONSTERS_ALTERERS] = {" Pacifista"," Burro"," Cego"," Imaginário"," Sem Pernas", " Invisivel", " Gigantesco",
+    " de 3 cabeças", " Aterrorizante"," Cabeludo"," Rochoso"," Assassino", ""};
 
 alterer get_random_item_alterer() {
     int random = rand() % N_ITEMS_ALTERERS;
@@ -65,20 +68,25 @@ alterer get_random_monster_alterer() {
 }
 
 // For temporary testing until we have defined the final values
-void generate_generic_alterer(alterer *a) {
-    a->text = "text";
-    a->strength = 10 + (rand() % 5);
-    a->defense = 10 + (rand() % 5);
-    a->health = 10 + (rand() % 5);
+alterer generate_generic_alterer() {
+    alterer a;
+    a.strength = 10 + ((rand() % 11) - 5);
+    a.defense = 10 + ((rand() % 11) - 5);
+    a.health = 10 + ((rand() % 11) - 5);
+    return a;
 }
 
 void generate_all_alterers() {
     for (int i = 0; i < N_ITEMS_ALTERERS; i++) {
-        generate_generic_alterer(&item_alterer[i]);
+         alterer a = generate_generic_alterer();
+         a.text = item_alterer_names[i];
+         item_alterer[i] = a;
     }
     for (int i = 0; i < N_MONSTERS_ALTERERS; i++) {
-        generate_generic_alterer(&monster_alterer[i]);
-    }
+        alterer a = generate_generic_alterer();
+        a.text = monster_alterer_names[i];
+        monster_alterer[i] = a;
+    }   
 }
 
 #endif

@@ -5,6 +5,7 @@ using namespace std;
 
 // Character representation
 struct main_character {
+    string name;
     int strength;
     int defense;
     int health;
@@ -22,6 +23,7 @@ void set_initial_attributes() {
     character.strength = stick.strength + potato_sack.strength;
     character.defense = stick.defense + potato_sack.defense;
     character.health = stick.health + potato_sack.health;
+    character.max_health = stick.health + potato_sack.health;
 }
 
 void set_initial_items() {
